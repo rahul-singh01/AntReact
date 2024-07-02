@@ -1,16 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
 import VenusOrbit from '../Constants/venusOrbit.json';
 import { venusConstants } from '../Constants/ShapeCoordsContants';
+import { Text } from '@react-three/drei';
 
 export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPlanet }) {
     let time = useRef(0);
+    let venusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(venusConstants.color);
-
+    const { camera } = useThree()
     useFrame((state, delta) => {
         if (venusRef.current) {
             const orbitalPeriod = venusConstants.orbitalPeriod;
@@ -18,12 +20,26 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
             venusRef.current.rotation.y += venusConstants.rotationSpeed;
             time.current += delta;
 
-            venusRef.current.position.x = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * venusConstants.majorAxis +venusConstants.offsetX;
+            venusRef.current.position.x = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * venusConstants.majorAxis + venusConstants.offsetX;
             venusRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * venusConstants.minorAxis + venusConstants.offsetZ;
             venusRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(venusConstants.tilt) * venusConstants.majorAxis + venusConstants.offsetY;
 
             const axialTilt = venusConstants.axialTilt;
             venusRef.current.rotation.x = axialTilt;
+
+            venusTextRef?.current?.lookAt(camera.position);
+            //change its size based on distance from camera
+            const distance = venusRef.current.position.distanceTo(camera.position);
+            if (showOrbit) {
+                if (distance > 35) {
+                    let textScale = distance / 20;
+                    venusTextRef.current.scale.set(textScale, textScale, textScale);
+                    venusTextRef.current.position.y = 0.45 * textScale;
+                } else {
+                    venusTextRef.current.position.y = 0.75;
+                    venusTextRef.current.scale.set(0.5, 0.5, 0.5);
+                }
+            }
         }
     });
 
@@ -66,6 +82,21 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
                     emissiveIntensity={hovered ? 10 : 1}
                     attach="material"
                 />
+                {
+                    showOrbit &&
+                    <Text
+
+                        position={[0, 1, 0]}
+                        fontSize={0.5}
+                        color={hovered ? venusConstants.textHoverColor : venusConstants.textNormalColor}
+                        anchorX="center"
+                        anchorY="middle"
+                        rotation={[0, 0, 0]}
+                        ref={venusTextRef}
+                    >
+                        Venus
+                    </Text>
+                }
             </mesh>
             {showOrbit &&
                 <Orbit coordinates={VenusOrbit} color={color} thickness={10} />

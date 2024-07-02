@@ -13,6 +13,8 @@
     axialTilt: 0.192173,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
  const venusConstants = {
@@ -30,6 +32,8 @@
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
  const earthConstants = {
@@ -47,6 +51,8 @@
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
  const marsConstants = {
@@ -64,6 +70,8 @@
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
  const jupiterConstants = {
@@ -81,6 +89,8 @@
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
 const saturnConstants = {
@@ -98,6 +108,8 @@ const saturnConstants = {
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
 const uranusConstants = {
@@ -115,6 +127,8 @@ const uranusConstants = {
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
 const neptuneConstants = {
@@ -123,15 +137,17 @@ const neptuneConstants = {
     tilt: 0.03089,
     rotationSpeed: 0.001,
     orbitalPeriod: 60152,
-    modelScale: [0.23, 0.23, 0.23],
+    modelScale: [0.53, 0.53, 0.53],
     color: "orange",
     hoverColor: "purple",
     selectedPlanet: 8,
-    radius: 3,
+    radius: 8,
     axialTilt: 0.122173,
     offsetX: 0,
     offsetY: 0,
     offsetZ: 0,
+    textNormalColor: "white",
+    textHoverColor: "yellow",
 };
 
 module.exports = {
@@ -142,4 +158,5 @@ module.exports = {
     jupiterConstants,
     saturnConstants,
     uranusConstants,
+    neptuneConstants,
 };

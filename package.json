@@ -8,7 +8,7 @@
     "@mui/material": "^5.15.19",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@react-three/cannon": "^6.6.0",
-    "@react-three/drei": "^9.106.0",
+    "@react-three/drei": "^9.108.1",
     "@react-three/fiber": "^8.16.8",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

@@ -1,16 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
 import JupiterOrbit from '../Constants/jupiterOrbit.json';
 import { jupiterConstants } from '../Constants/ShapeCoordsContants';
+import { Text } from '@react-three/drei';
 
 export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet }) {
     let time = useRef(0);
+    const jupiterTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState("yellow");
-
+    const {camera} = useThree();
     useFrame((state, delta) => {
         if (jupiterRef.current) {
             const orbitalPeriod = jupiterConstants.orbitalPeriod;
@@ -24,6 +26,19 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
 
             const axialTilt = jupiterConstants.axialTilt;
             jupiterRef.current.rotation.x = axialTilt;
+
+            jupiterTextRef?.current?.lookAt(camera.position);
+            const distance = jupiterRef.current.position.distanceTo(camera.position);
+            if (showOrbit) {
+                if (distance > 35) {
+                    let textScale = distance / 20;
+                    jupiterTextRef.current.scale.set(textScale, textScale, textScale);
+                    jupiterTextRef.current.position.y = 0.45 * textScale;
+                } else {
+                    jupiterTextRef.current.position.y = 0.75;
+                    jupiterTextRef.current.scale.set(0.5, 0.5, 0.5);
+                }
+            }
         }
     });
 
@@ -66,6 +81,21 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
                     emissiveIntensity={hovered ? 10 : 1}
                     attach="material"
                 />
+                {
+                    showOrbit &&
+                    <Text
+
+                        position={[0, 1, 0]}
+                        fontSize={0.5}
+                        color={hovered ? jupiterConstants.textHoverColor : jupiterConstants.textNormalColor}
+                        anchorX="center"
+                        anchorY="middle"
+                        rotation={[0, 0, 0]}
+                        ref={jupiterTextRef}
+                    >
+                        Jupiter
+                    </Text>
+                }
             </mesh>
             {showOrbit &&
                 <Orbit coordinates={JupiterOrbit} color={color} hoverColor={"blue"} thickness={10} />

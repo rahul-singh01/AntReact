@@ -1,16 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
 import SaturnOrbit from '../Constants/saturnOrbit.json';
-import { saturnCon, saturnConstants, saturnConstantsstants } from '../Constants/ShapeCoordsContants';
+import { saturnConstants } from '../Constants/ShapeCoordsContants';
+import { Text } from '@react-three/drei';
 
 export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selectedPlanet }) {
     let time = useRef(0);
+    let saturntextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(saturnConstants.color);
-
+    const {camera}= useThree();
     useFrame((state, delta) => {
         if (saturnRef.current) {
             const orbitalPeriod = saturnConstants.orbitalPeriod;
@@ -24,6 +26,19 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
 
             const axialTilt = saturnConstants.axialTilt;
             saturnRef.current.rotation.x = axialTilt;
+
+            saturntextRef?.current?.lookAt(camera.position);
+            const distance = saturnRef.current.position.distanceTo(camera.position);
+            if (showOrbit) {
+                if (distance > 35) {
+                    let textScale = distance / 20;
+                    saturntextRef.current.scale.set(textScale, textScale, textScale);
+                    saturntextRef.current.position.y = 0.45 * textScale;
+                } else {
+                    saturntextRef.current.position.y = 0.75;
+                    saturntextRef.current.scale.set(0.5, 0.5, 0.5);
+                }
+            }
         }
     });
 
@@ -66,6 +81,21 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
                     emissiveIntensity={hovered ? 10 : 1}
                     attach="material"
                 />
+                {
+                    showOrbit &&
+                    <Text
+
+                        position={[0, 1, 0]}
+                        fontSize={0.5}
+                        color={hovered ? saturnConstants.textHoverColor : saturnConstants.textNormalColor}
+                        anchorX="center"
+                        anchorY="middle"
+                        rotation={[0, 0, 0]}
+                        ref={saturntextRef}
+                    >
+                        Saturn
+                    </Text>
+                }
             </mesh>
             {showOrbit &&
                 <Orbit coordinates={SaturnOrbit} color={color} hoverColor={"blue"} thickness={10} />

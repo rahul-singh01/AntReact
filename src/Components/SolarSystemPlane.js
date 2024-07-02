@@ -13,6 +13,7 @@ import Mars from './Mars';
 import Jupiter from './Jupiter';
 import Saturn from './Saturn';
 import Uranas from './Uranas';
+import Neptune from './Neptune';
 export default function SolarSystemPlane() {
     // const [followPlanetRef, setFollowPlanetRef] = useState(0);
     const followPlanetRef = useRef(0);
@@ -27,6 +28,7 @@ export default function SolarSystemPlane() {
     const jupiterRef = useRef(null);
     const saturnRef = useRef(null);
     const uranusRef = useRef(null);
+    const neptuneRef = useRef(null);
     return (
         <>
             <Sun ref={sunRef} />
@@ -45,7 +47,9 @@ export default function SolarSystemPlane() {
 
             <Uranas uranusRef={uranusRef} followPlanetRef={followPlanetRef} radiusRef={radiusRef} selectedPlanet={selectedPlanet}/>
 
-            <CustomControls followPlanetRef={followPlanetRef} planetRefs={[sunRef,mercuryRef, venusRef, earthRef, marsRef, jupiterRef, saturnRef, uranusRef]} radiusRef={radiusRef} selectedPlanetRef={selectedPlanet}/>
+            <Neptune neptuneRef={neptuneRef} followPlanetRef={followPlanetRef} radiusRef={radiusRef} selectedPlanet={selectedPlanet}/>
+
+            <CustomControls followPlanetRef={followPlanetRef} planetRefs={[sunRef,mercuryRef, venusRef, earthRef, marsRef, jupiterRef, saturnRef, uranusRef, neptuneRef]} radiusRef={radiusRef} selectedPlanetRef={selectedPlanet}/>
             <ambientLight intensity={0.5} />
         </>
     );

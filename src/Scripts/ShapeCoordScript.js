@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { mercuryConstants, venusConstants, earthConstants, marsConstants, jupiterConstants, saturnConstants, uranusConstants } = require('../Constants/ShapeCoordsContants');
+const { mercuryConstants, venusConstants, earthConstants, marsConstants, jupiterConstants, saturnConstants, uranusConstants, neptuneConstants } = require('../Constants/ShapeCoordsContants');
 
 function CoordinateGeneratorAndSaver(generatorFunction, options, filename) {
     const coordinates = generatorFunction(options);
@@ -45,6 +45,7 @@ CoordinateGeneratorAndSaver(EllipseCoordGenerator, marsConstants, 'marsOrbit.jso
 CoordinateGeneratorAndSaver(EllipseCoordGenerator, jupiterConstants, 'jupiterOrbit.json');
 CoordinateGeneratorAndSaver(EllipseCoordGenerator, saturnConstants, 'saturnOrbit.json');
 CoordinateGeneratorAndSaver(EllipseCoordGenerator, uranusConstants, 'uranusOrbit.json');
+CoordinateGeneratorAndSaver(EllipseCoordGenerator, neptuneConstants, 'neptuneOrbit.json');
 // CoordinateGeneratorAndSaver(EllipseCoordGenerator, jupiterOrbitOptions, 'jupiterOrbit.json');
 
 const circularPathOptions = {
