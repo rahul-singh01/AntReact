@@ -31,7 +31,7 @@ function calculateMarsPosition() {
   };
 }
 
-export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
   let time = useRef(0);
   let marsTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -78,8 +78,10 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
+    selectedPlanet.current = marsConstants.selectedPlanet;
+    if (!showOrbit) setSelectedPlanetState(0);
+    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = marsConstants.selectedPlanet;
-    selectedPlanet.current = 4;
     followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 

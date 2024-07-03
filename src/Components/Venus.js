@@ -32,7 +32,7 @@ function calculateVenusPosition() {
     };
 }
 
-export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
     const time = useRef(Date.now());
     const venusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -78,8 +78,10 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
+        selectedPlanet.current = venusConstants.selectedPlanet;
+        if (!showOrbit) setSelectedPlanetState(0);
+        // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
         radiusRef.current = venusConstants.radius;
-        selectedPlanet.current = 2;
         followPlanetRef.current = (followPlanetRef.current + 1) % 3;
     };
 

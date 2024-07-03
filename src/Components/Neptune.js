@@ -32,7 +32,7 @@ function calculateNeptunePosition() {
   };
 }
 
-export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
   const time = useRef(Date.now());
   const neptuneTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -90,8 +90,10 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
-    radiusRef.current = neptuneConstants.radius;
     selectedPlanet.current = neptuneConstants.selectedPlanet;
+    if (!showOrbit) setSelectedPlanetState(0);
+    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+    radiusRef.current = neptuneConstants.radius;
     followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 

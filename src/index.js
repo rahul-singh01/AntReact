@@ -4,13 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AppProvider } from './Context/AppContext';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import InformationPlane from './Components/InformationPlane';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path='/dev' element={<InformationPlane />} />
+        </Routes>
+      </BrowserRouter>
 
-      <App />
     </AppProvider>
   </React.StrictMode>
 );

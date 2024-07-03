@@ -31,7 +31,7 @@ function calculateMercuryPosition() {
     };
 }
 
-export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
     let time = useRef(0);
     let mercuryTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -77,8 +77,11 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
-        radiusRef.current = mercuryConstants.radius;
         selectedPlanet.current = mercuryConstants.selectedPlanet;
+        if (!showOrbit) setSelectedPlanetState(0);
+
+        // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+        radiusRef.current = mercuryConstants.radius;
         followPlanetRef.current = (followPlanetRef.current + 1) % 3;
     };
 

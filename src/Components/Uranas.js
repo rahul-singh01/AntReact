@@ -32,7 +32,7 @@ function calculateUranusPosition() {
     };
 }
 
-export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
     const time = useRef(Date.now());
     const uranusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -90,8 +90,10 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
-        radiusRef.current = uranusConstants.radius;
         selectedPlanet.current = uranusConstants.selectedPlanet;
+        if (!showOrbit) setSelectedPlanetState(0);
+        // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+        radiusRef.current = uranusConstants.radius;
         followPlanetRef.current = (followPlanetRef.current + 1) % 3;
     };
 

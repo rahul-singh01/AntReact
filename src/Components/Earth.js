@@ -33,7 +33,7 @@ function calculateEarthPosition() {
   };
 }
 
-export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
   const time = useRef(Date.now());
   const earthTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -91,8 +91,10 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
+    selectedPlanet.current = earthConstants.selectedPlanet;
+    if (!showOrbit) setSelectedPlanetState(0)
+    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = earthConstants.radius;
-    selectedPlanet.current = 3;
     followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 

@@ -31,7 +31,7 @@ function calculateJupiterPosition() {
   };
 }
 
-export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
   let time = useRef(0);
   const jupiterTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -77,8 +77,12 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
-    radiusRef.current = jupiterConstants.radius;
     selectedPlanet.current = jupiterConstants.selectedPlanet;
+    if (!showOrbit) {
+      setSelectedPlanetState(0);
+    }
+    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+    radiusRef.current = jupiterConstants.radius;
     followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 

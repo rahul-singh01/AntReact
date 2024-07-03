@@ -32,7 +32,7 @@ function calculateSaturnPosition() {
     };
 }
 
-export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selectedPlanet }) {
+export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
     const time = useRef(Date.now());
     const saturnTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -90,8 +90,10 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
-        radiusRef.current = saturnConstants.radius;
         selectedPlanet.current = saturnConstants.selectedPlanet;
+        if (!showOrbit) setSelectedPlanetState(0);
+        // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+        radiusRef.current = saturnConstants.radius;
         followPlanetRef.current = (followPlanetRef.current + 1) % 3;
     };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanetRef }) => {
+const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanetRef, setSelectedPlanetState }) => {
     
     
     const sphericalCoordsRef = useRef({ theta: 0, phi: 0, r: 5 });
@@ -83,10 +83,10 @@ const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanet
                     const theta = Math.acos((camera.position.y - targetPosition.y) / r);
                     const phi = Math.atan2(camera.position.z - targetPosition.z, camera.position.x - targetPosition.x);
                     sphericalCoordsRef.current = { theta, phi, r };
-
                     followPlanetRef.current = 2;
                 }
             } else if (followPlanet === 2) {
+                setSelectedPlanetState(selectedPlanet);
                 const { x, y, z } = planetRef.current.position;
                 const { theta, phi, r } = sphericalCoordsRef.current;
 
