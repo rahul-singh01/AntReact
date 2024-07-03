@@ -1,18 +1,52 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
-import UranasOrbit from '../Constants/uranusOrbit.json';
+import UranusOrbit from '../Constants/uranusOrbit.json';
 import { uranusConstants } from '../Constants/ShapeCoordsContants';
 import { Text } from '@react-three/drei';
 
-export default function Uranas({ uranusRef, followPlanetRef, radiusRef, selectedPlanet }) {
-    let time = useRef(0);
-    let uranusTextRef = useRef(null);
+function calculateUranusPosition() {
+    const now = new Date();
+    const referenceDate = new Date('2000-01-01T00:00:00Z'); 
+    const elapsedTime = (now - referenceDate) / (1000 * 60 * 60 * 24 * 365.25); 
+    const orbitalPeriod = uranusConstants.orbitalPeriod;
+    const meanAnomaly = (2 * Math.PI * (elapsedTime % orbitalPeriod)) / orbitalPeriod;
+
+    const eccentricity = 0.0457; 
+
+    let E = meanAnomaly;
+    for (let i = 0; i < 5; i++) {
+        E = meanAnomaly + eccentricity * Math.sin(E);
+    }
+
+    const trueAnomaly = 2 * Math.atan2(
+        Math.sqrt(1 + eccentricity) * Math.sin(E / 2),
+        Math.sqrt(1 - eccentricity) * Math.cos(E / 2)
+    );
+
+    return {
+        x: Math.cos(trueAnomaly) * uranusConstants.majorAxis + uranusConstants.offsetX,
+        y: Math.sin(trueAnomaly) * Math.tan(uranusConstants.tilt) * uranusConstants.majorAxis + uranusConstants.offsetY,
+        z: Math.sin(trueAnomaly) * uranusConstants.minorAxis + uranusConstants.offsetZ,
+    };
+}
+
+export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selectedPlanet }) {
+    const time = useRef(Date.now());
+    const uranusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(uranusConstants.color);
-    const {camera} = useThree();
+    const { camera } = useThree();
+
+    useEffect(() => {
+        const initialPosition = calculateUranusPosition();
+        if (uranusRef.current) {
+            uranusRef.current.position.set(initialPosition.x, initialPosition.y, initialPosition.z);
+        }
+    }, []);
+
     useFrame((state, delta) => {
         if (uranusRef.current) {
             const orbitalPeriod = uranusConstants.orbitalPeriod;
@@ -42,13 +76,6 @@ export default function Uranas({ uranusRef, followPlanetRef, radiusRef, selected
         }
     });
 
-    const handleClick = () => {
-        setShowOrbit(!showOrbit);
-        radiusRef.current = uranusConstants.radius;
-        selectedPlanet.current = uranusConstants.selectedPlanet;
-        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
-    };
-
     const handlePointerOver = () => {
         setHovered(true);
         setColor(uranusConstants.hoverColor);
@@ -59,6 +86,13 @@ export default function Uranas({ uranusRef, followPlanetRef, radiusRef, selected
         setHovered(false);
         setColor(uranusConstants.color);
         document.body.style.cursor = "auto";
+    };
+
+    const handleClick = () => {
+        setShowOrbit(!showOrbit);
+        radiusRef.current = uranusConstants.radius;
+        selectedPlanet.current = uranusConstants.selectedPlanet;
+        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
     };
 
     return (
@@ -84,7 +118,6 @@ export default function Uranas({ uranusRef, followPlanetRef, radiusRef, selected
                 {
                     showOrbit &&
                     <Text
-
                         position={[0, 1, 0]}
                         fontSize={0.5}
                         color={hovered ? uranusConstants.textHoverColor : uranusConstants.textNormalColor}
@@ -98,7 +131,7 @@ export default function Uranas({ uranusRef, followPlanetRef, radiusRef, selected
                 }
             </mesh>
             {showOrbit &&
-                <Orbit coordinates={UranasOrbit} color={color} hoverColor={"blue"} thickness={10} />
+                <Orbit coordinates={UranusOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }
         </>
     );

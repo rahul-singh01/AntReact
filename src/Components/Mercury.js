@@ -1,17 +1,51 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
 import MercuryOrbit from '../Constants/mercuryOrbit.json';
 import { mercuryConstants } from '../Constants/ShapeCoordsContants';
 import { Text } from '@react-three/drei';
+
+function calculateMercuryPosition() {
+    const now = new Date();
+    const startOfYear = new Date(now.getFullYear(), 0, 0);
+    const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+    const yearLength = 88;
+    const meanAnomaly = (2 * Math.PI * dayOfYear) / yearLength;
+
+    const eccentricity = 0.2056;
+
+    let E = meanAnomaly;
+    for (let i = 0; i < 5; i++) {
+        E = meanAnomaly + eccentricity * Math.sin(E);
+    }
+    const trueAnomaly = 2 * Math.atan2(
+        Math.sqrt(1 + eccentricity) * Math.sin(E / 2),
+        Math.sqrt(1 - eccentricity) * Math.cos(E / 2)
+    );
+
+    return {
+        x: Math.cos(trueAnomaly) * mercuryConstants.majorAxis + mercuryConstants.offsetX,
+        y: Math.sin(trueAnomaly) * Math.tan(mercuryConstants.tilt) * mercuryConstants.majorAxis,
+        z: Math.sin(trueAnomaly) * mercuryConstants.minorAxis,
+    };
+}
+
 export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, selectedPlanet }) {
     let time = useRef(0);
-    let mercurytextRef = useRef(null);
+    let mercuryTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(mercuryConstants.color);
-    const {camera}= useThree();
+    const { camera } = useThree();
+
+    useEffect(() => {
+        const initialPosition = calculateMercuryPosition();
+        if (mercuryRef.current) {
+            mercuryRef.current.position.set(initialPosition.x, initialPosition.y, initialPosition.z);
+        }
+    }, []);
+
     useFrame((state, delta) => {
         if (mercuryRef.current) {
             const orbitalPeriod = mercuryConstants.orbitalPeriod;
@@ -25,17 +59,17 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
 
             mercuryRef.current.rotation.x = mercuryConstants.axialTilt;
 
-            mercurytextRef?.current?.lookAt(camera.position);
-            
+            mercuryTextRef?.current?.lookAt(camera.position);
+
             const distance = mercuryRef.current.position.distanceTo(camera.position);
             if (showOrbit) {
-                if (distance > 35) {
+                if (distance > 25) {
                     let textScale = distance / 20;
-                    mercurytextRef.current.scale.set(textScale, textScale, textScale);
-                    mercurytextRef.current.position.y = 0.45 * textScale;
+                    mercuryTextRef.current.scale.set(textScale, textScale, textScale);
+                    mercuryTextRef.current.position.y = 0.45 * textScale;
                 } else {
-                    mercurytextRef.current.position.y = 0.75;
-                    mercurytextRef.current.scale.set(0.5, 0.5, 0.5);
+                    mercuryTextRef.current.position.y = 0.75;
+                    mercuryTextRef.current.scale.set(0.5, 0.5, 0.5);
                 }
             }
         }
@@ -80,17 +114,15 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
                     emissiveIntensity={hovered ? 10 : 1}
                     attach="material"
                 />
-                {
-                    showOrbit &&
+                {showOrbit &&
                     <Text
-
                         position={[0, 1, 0]}
                         fontSize={0.5}
                         color={hovered ? mercuryConstants.textHoverColor : mercuryConstants.textNormalColor}
                         anchorX="center"
                         anchorY="middle"
                         rotation={[0, 0, 0]}
-                        ref={mercurytextRef}
+                        ref={mercuryTextRef}
                     >
                         Mercury
                     </Text>
