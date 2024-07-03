@@ -1,309 +1,330 @@
 {
-    "planets": [
-      {
-        "name": "Sun",
-        "basic_info": {
-          "radius": "696,340 km",
-          "orbital_period": "N/A",
-          "rotation_period": "25-35 Earth days",
-          "temperature": {
-            "core": "15,000,000°C",
-            "surface": "5,505°C"
-          },
-          "distance_from_sun": "0 km",
-          "gravity": "274 m/s²",
-          "atmosphere": "Hydrogen, helium",
-          "surface": "N/A",
-          "magnetic_field": "Complex and dynamic",
-          "description": "The Sun is the star at the center of our solar system and is by far its largest component, containing over 99.8% of the total mass of the solar system. It provides the necessary heat and light for life on Earth. The Sun is a nearly perfect sphere of hot plasma, with internal convective motion generating a magnetic field via a dynamo process. It has a complex structure with several layers including the core, radiative zone, and convective zone. Solar activity, such as sunspots, solar flares, and coronal mass ejections, affects space weather and can impact Earth's magnetosphere."
+  "planets": [
+    {
+      "name": "Sun",
+      "basic_info": {
+        "radius": "696,340 km",
+        "orbital_period": "N/A",
+        "rotation_period": "25-35 Earth days",
+        "temperature": {
+          "core": "15,000,000°C",
+          "surface": "5,505°C"
         },
-        "history_timeline": [
-          "Formation: The Sun formed approximately 4.6 billion years ago from the gravitational collapse of a region within a large molecular cloud.",
-          "Prehistoric times: The Sun has been observed and revered by humans since ancient times, featuring prominently in many cultures' myths and religions.",
-          "1610: Galileo Galilei observes sunspots using a telescope.",
-          "1859: The Carrington Event, a massive solar storm, disrupts telegraph systems worldwide.",
-          "1957-1958: The International Geophysical Year marks a period of intense solar and space research.",
-          "1995: Launch of the SOHO spacecraft, which has provided continuous observations of the Sun since then."
-        ],
-        "moons": [],
-        "satellites": [
-          "SOHO",
-          "Parker Solar Probe",
-          "Solar Dynamics Observatory",
-          "Solar and Heliospheric Observatory",
-          "Ulysses"
-        ]
+        "distance_from_sun": "0 km",
+        "gravity": "274 m/s²",
+        "atmosphere": "Hydrogen, helium",
+        "surface": "N/A",
+        "magnetic_field": "Complex and dynamic",
+        "description": "The Sun is the star at the center of our solar system and is by far its largest component, containing over 99.8% of the total mass of the solar system. It provides the necessary heat and light for life on Earth. The Sun is a nearly perfect sphere of hot plasma, with internal convective motion generating a magnetic field via a dynamo process. It has a complex structure with several layers including the core, radiative zone, and convective zone. Solar activity, such as sunspots, solar flares, and coronal mass ejections, affects space weather and can impact Earth's magnetosphere."
       },
-      {
-        "name": "Mercury",
-        "basic_info": {
-          "radius": "2,439.7 km",
-          "orbital_period": "88 Earth days",
-          "rotation_period": "58.6 Earth days",
-          "temperature": {
-            "average": "167°C",
-            "day": "430°C",
-            "night": "-180°C"
-          },
-          "distance_from_sun": "57.9 million km",
-          "gravity": "3.7 m/s²",
-          "atmosphere": "Thin, composed mostly of oxygen, sodium, hydrogen, helium, and potassium",
-          "surface": "Rocky, heavily cratered",
-          "magnetic_field": "Present, but weak",
-          "description": "Mercury is the smallest planet in our solar system and the closest to the Sun. It has a very thin atmosphere and its surface is heavily cratered, similar in appearance to Earth's Moon. Despite its proximity to the Sun, Mercury experiences extreme temperature fluctuations, with scorching heat during the day and freezing cold at night. Due to its slow rotation and lack of significant atmosphere, it has no weather or seasons. Mercury's high density suggests it has a large metallic core, possibly rich in iron."
+      "history_timeline": [
+        "Formation: The Sun formed approximately 4.6 billion years ago from the gravitational collapse of a region within a large molecular cloud.",
+        "Prehistoric times: The Sun has been observed and revered by humans since ancient times, featuring prominently in many cultures' myths and religions.",
+        "1610 January: Galileo Galilei observes sunspots using a telescope.",
+        "1859 September: The Carrington Event, a massive solar storm, disrupts telegraph systems worldwide.",
+        "1868 August: French astronomer Pierre Janssen and English astronomer Joseph Norman Lockyer independently discover helium during solar eclipses, which was later identified as a new element present in the Sun.",
+        "1944 October: Discovery of solar radio bursts by Grote Reber, marking the beginning of radio astronomy observations of the Sun.",
+        "1957-1958: The International Geophysical Year marks a period of intense solar and space research.",
+        "1973 December: Launch of the Skylab space station, which conducted extensive solar observations and studies.",
+        "1995 December: Launch of the SOHO spacecraft, which has provided continuous observations of the Sun since then.",
+        "2018 August: Launch of the Parker Solar Probe, NASA's mission to study the Sun up close and investigate solar winds and magnetic fields."
+      ],
+      "moons": [],
+      "satellites": [
+        "SOHO",
+        "Parker Solar Probe",
+        "Solar Dynamics Observatory",
+        "Solar and Heliospheric Observatory",
+        "Ulysses"
+      ]
+    },
+    {
+      "name": "Mercury",
+      "basic_info": {
+        "radius": "2,439.7 km",
+        "orbital_period": "88 Earth days",
+        "rotation_period": "58.6 Earth days",
+        "temperature": {
+          "average": "167°C",
+          "day": "430°C",
+          "night": "-180°C"
         },
-        "history_timeline": [
-          "Prehistoric times: Known since at least Sumerian times around 3000 BC.",
-          "1631: First observed by telescope by Galileo Galilei.",
-          "1974-1975: Mariner 10 flew by Mercury three times and mapped about 45% of the surface.",
-          "2008-2015: MESSENGER mission orbited and studied Mercury extensively."
-        ],
-        "moons": [],
-        "satellites": [
-          "Mariner 10",
-          "MESSENGER"
-        ]
+        "distance_from_sun": "57.9 million km",
+        "gravity": "3.7 m/s²",
+        "atmosphere": "Thin, composed mostly of oxygen, sodium, hydrogen, helium, and potassium",
+        "surface": "Rocky, heavily cratered",
+        "magnetic_field": "Present, but weak",
+        "description": "Mercury is the smallest planet in our solar system and the closest to the Sun. It has a very thin atmosphere and its surface is heavily cratered, similar in appearance to Earth's Moon. Despite its proximity to the Sun, Mercury experiences extreme temperature fluctuations, with scorching heat during the day and freezing cold at night. Due to its slow rotation and lack of significant atmosphere, it has no weather or seasons. Mercury's high density suggests it has a large metallic core, possibly rich in iron."
       },
-      {
-        "name": "Venus",
-        "basic_info": {
-          "radius": "6,051.8 km",
-          "orbital_period": "225 Earth days",
-          "rotation_period": "243 Earth days (retrograde)",
-          "temperature": {
-            "average": "464°C"
-          },
-          "distance_from_sun": "108.2 million km",
-          "gravity": "8.87 m/s²",
-          "atmosphere": "Thick, composed mainly of carbon dioxide with clouds of sulfuric acid",
-          "surface": "Volcanic plains, highland regions, and numerous large volcanoes",
-          "magnetic_field": "None",
-          "description": "Venus is the second planet from the Sun and is similar in size and structure to Earth, earning it the nickname Earth's twin. However, Venus has a very thick and toxic atmosphere composed mainly of carbon dioxide, with clouds of sulfuric acid, making its surface temperature extremely hot, hotter than Mercury's, despite being further from the Sun. The surface is marked by extensive volcanic plains, highland regions, and large volcanoes. Venus has no moons and rotates very slowly on its axis in the opposite direction to most planets."
+      "history_timeline": [
+        "Prehistoric times: Known since at least Sumerian times around 3000 BC.",
+        "1631: First observed by telescope by Galileo Galilei.",
+        "1639: Pierre Gassendi observes a transit of Mercury across the Sun, verifying Kepler's prediction of its occurrence.",
+        "1881: Giovanni Schiaparelli observes dark features on Mercury, which he called 'seas' and 'continents'.",
+        "1974-1975 March: Mariner 10 flew by Mercury three times and mapped about 45% of the surface.",
+        "2004 January: MESSENGER spacecraft launched by NASA to study Mercury's composition, geology, and magnetic field.",
+        "2008-2015: MESSENGER mission orbited and studied Mercury extensively, discovering water ice in polar craters and confirming the presence of volcanic activity."
+      ],
+      "moons": [],
+      "satellites": [
+        "Mariner 10",
+        "MESSENGER"
+      ]
+    },
+    {
+      "name": "Venus",
+      "basic_info": {
+        "radius": "6,051.8 km",
+        "orbital_period": "225 Earth days",
+        "rotation_period": "243 Earth days (retrograde)",
+        "temperature": {
+          "average": "464°C"
         },
-        "history_timeline": [
-          "Prehistoric times: Known since ancient times.",
-          "1610: Galileo Galilei observes Venus's phases, providing evidence for the heliocentric model.",
-          "1962: Mariner 2 becomes the first spacecraft to fly by Venus and return data.",
-          "1970: Venera 7 becomes the first spacecraft to land on Venus and transmit data back to Earth.",
-          "1990-1994: Magellan orbiter maps the surface of Venus using radar."
-        ],
-        "moons": [],
-        "satellites": [
-          "Mariner 2",
-          "Venera 7",
-          "Magellan"
-        ]
+        "distance_from_sun": "108.2 million km",
+        "gravity": "8.87 m/s²",
+        "atmosphere": "Thick, composed mainly of carbon dioxide with clouds of sulfuric acid",
+        "surface": "Volcanic plains, highland regions, and numerous large volcanoes",
+        "magnetic_field": "None",
+        "description": "Venus is the second planet from the Sun and is similar in size and structure to Earth, earning it the nickname Earth's twin. However, Venus has a very thick and toxic atmosphere composed mainly of carbon dioxide, with clouds of sulfuric acid, making its surface temperature extremely hot, hotter than Mercury's, despite being further from the Sun. The surface is marked by extensive volcanic plains, highland regions, and large volcanoes. Venus has no moons and rotates very slowly on its axis in the opposite direction to most planets."
       },
-      {
-        "name": "Earth",
-        "basic_info": {
-          "radius": "6,371 km",
-          "orbital_period": "365.25 Earth days",
-          "rotation_period": "24 hours",
-          "temperature": {
-            "average": "15°C"
-          },
-          "distance_from_sun": "149.6 million km",
-          "gravity": "9.8 m/s²",
-          "atmosphere": "Nitrogen (78%), oxygen (21%), argon (0.9%), trace amounts of other gases",
-          "surface": "71% water, 29% land with mountains, valleys, plains, and other geographical features",
-          "magnetic_field": "Strong, generated by the planet's liquid outer core",
-          "description": "Earth is the third planet from the Sun and the only known planet to support life. It has a diverse climate and surface environment, with 71% of its surface covered by water and the remaining 29% consisting of continents and islands. Earth's atmosphere is rich in nitrogen and oxygen, which are essential for life. The planet has a strong magnetic field that protects it from solar wind and cosmic radiation. Earth's biosphere has significantly altered its atmosphere and other abiotic conditions, allowing for the proliferation of life."
+      "history_timeline": [
+        "Prehistoric times: Known since ancient times.",
+        "1610 January: Galileo Galilei observes Venus's phases, providing evidence for the heliocentric model.",
+        "1761 June: Transit of Venus observed by astronomers worldwide to calculate the distance between the Earth and the Sun (astronomical unit).",
+        "1962 December: Mariner 2 becomes the first spacecraft to fly by Venus and return data.",
+        "1970 December: Venera 7 becomes the first spacecraft to land on Venus and transmit data back to Earth, surviving for about 23 minutes.",
+        "1978 May: Pioneer Venus 1 arrives at Venus and begins orbiting the planet, studying its atmosphere and surface.",
+        "1990-1994: Magellan orbiter maps the surface of Venus using radar, providing detailed images and topographic data of the planet's features."
+      ],
+      "moons": [],
+      "satellites": [
+        "Mariner 2",
+        "Venera 7",
+        "Magellan"
+      ]
+    },
+    {
+      "name": "Earth",
+      "basic_info": {
+        "radius": "6,371 km",
+        "orbital_period": "365.25 Earth days",
+        "rotation_period": "24 hours",
+        "temperature": {
+          "average": "15°C"
         },
-        "history_timeline": [
-          "4.5 billion years ago: Earth forms from the solar nebula.",
-          "3.5 billion years ago: First known forms of life appear.",
-          "1609: Galileo Galilei uses a telescope to study the night sky, laying the groundwork for modern astronomy.",
-          "1969: Apollo 11 mission lands the first humans on the Moon.",
-          "1990: Launch of the Hubble Space Telescope, providing unprecedented views of the universe."
-        ],
-        "moons": [
-          "Moon"
-        ],
-        "satellites": [
-          "Hubble Space Telescope",
-          "International Space Station"
-        ]
+        "distance_from_sun": "149.6 million km",
+        "gravity": "9.8 m/s²",
+        "atmosphere": "Nitrogen (78%), oxygen (21%), argon (0.9%), trace amounts of other gases",
+        "surface": "71% water, 29% land with mountains, valleys, plains, and other geographical features",
+        "magnetic_field": "Strong, generated by the planet's liquid outer core",
+        "description": "Earth is the third planet from the Sun and the only known planet to support life. It has a diverse climate and surface environment, with 71% of its surface covered by water and the remaining 29% consisting of continents and islands. Earth's atmosphere is rich in nitrogen and oxygen, which are essential for life. The planet has a strong magnetic field that protects it from solar wind and cosmic radiation. Earth's biosphere has significantly altered its atmosphere and other abiotic conditions, allowing for the proliferation of life."
       },
-      {
-        "name": "Mars",
-        "basic_info": {
-          "radius": "3,389.5 km",
-          "orbital_period": "687 Earth days",
-          "rotation_period": "24.6 hours",
-          "temperature": {
-            "average": "-63°C"
-          },
-          "distance_from_sun": "227.9 million km",
-          "gravity": "3.71 m/s²",
-          "atmosphere": "Thin, composed mostly of carbon dioxide, with traces of nitrogen and argon",
-          "surface": "Rocky, with mountains, valleys, deserts, and polar ice caps",
-          "magnetic_field": "Weak and patchy",
-          "description": "Mars is the fourth planet from the Sun and is often called the Red Planet due to its reddish appearance, which is the result of iron oxide or rust on its surface. Mars has a thin atmosphere, composed mainly of carbon dioxide, and surface features both of Earth and the Moon, with craters, volcanoes, valleys, deserts, and polar ice caps. It has the largest volcano in the solar system, Olympus Mons, and a canyon system, Valles Marineris, that dwarfs the Grand Canyon. Mars is a target for exploration because of its potential to have harbored life in the past."
+      "history_timeline": [
+        "4.5 billion years ago: Earth forms from the solar nebula.",
+        "3.5 billion years ago: First known forms of life appear on Earth.",
+        "1609 January: Galileo Galilei uses a telescope to study the night sky, laying the groundwork for modern astronomy.",
+        "1969 July: Apollo 11 mission lands the first humans on the Moon.",
+        "1977 September: Launch of the Voyager 1 spacecraft, which eventually becomes the first human-made object to enter interstellar space (2012).",
+        "1990 April: Launch of the Hubble Space Telescope, providing unprecedented views of the universe and fundamentally changing our understanding of space.",
+        "1997 July: Mars Pathfinder lands on Mars, deploying the Sojourner rover for surface exploration.",
+        "2004 January: NASA's Spirit rover lands on Mars, beginning its mission to study the planet's geology and climate.",
+        "2012 August: Curiosity rover lands on Mars, equipped with advanced instruments to assess the planet's habitability and search for signs of past life."
+      ],
+      "moons": [
+        "Moon"
+      ],
+      "satellites": [
+        "Hubble Space Telescope",
+        "International Space Station"
+      ]
+    },
+    {
+      "name": "Mars",
+      "basic_info": {
+        "radius": "3,389.5 km",
+        "orbital_period": "687 Earth days",
+        "rotation_period": "24.6 hours",
+        "temperature": {
+          "average": "-63°C"
         },
-        "history_timeline": [
-          "1659: Christiaan Huygens observes Mars's surface features.",
-          "1965: Mariner 4 conducts the first successful flyby of Mars, returning images of its surface.",
-          "1976: Viking 1 and Viking 2 land on Mars and conduct experiments to search for signs of life.",
-          "1997: Mars Pathfinder lands on Mars, deploying the Sojourner rover.",
-          "2004-present: Various missions, including rovers Spirit, Opportunity, Curiosity, and Perseverance, explore Mars."
-        ],
-        "moons": [
-          "Phobos",
-          "Deimos"
-        ],
-        "satellites": [
-          "Mariner 4",
-          "Viking 1",
-          "Viking 2",
-          "Mars Pathfinder",
-          "Curiosity",
-          "Perseverance"
-        ]
+        "distance_from_sun": "227.9 million km",
+        "gravity": "3.71 m/s²",
+        "atmosphere": "Thin, composed mostly of carbon dioxide, with traces of nitrogen and argon",
+        "surface": "Rocky, with mountains, valleys, deserts, and polar ice caps",
+        "magnetic_field": "Weak and patchy",
+        "description": "Mars is the fourth planet from the Sun and is often called the Red Planet due to its reddish appearance, which is the result of iron oxide or rust on its surface. Mars has a thin atmosphere, composed mainly of carbon dioxide, and surface features both of Earth and the Moon, with craters, volcanoes, valleys, deserts, and polar ice caps. It has the largest volcano in the solar system, Olympus Mons, and a canyon system, Valles Marineris, that dwarfs the Grand Canyon. Mars is a target for exploration because of its potential to have harbored life in the past."
       },
-      {
-        "name": "Jupiter",
-        "basic_info": {
-          "radius": "69,911 km",
-          "orbital_period": "11.86 Earth years",
-          "rotation_period": "9.9 hours",
-          "temperature": {
-            "average": "-145°C"
-          },
-          "distance_from_sun": "778.5 million km",
-          "gravity": "24.79 m/s²",
-          "atmosphere": "Mostly hydrogen and helium, with traces of methane, water vapor, ammonia, and other compounds",
-          "surface": "Gas giant, no solid surface",
-          "magnetic_field": "Very strong, 20,000 times stronger than Earth's",
-          "description": "Jupiter is the largest planet in our solar system and the fifth from the Sun. It is a gas giant with no solid surface, composed mostly of hydrogen and helium. Jupiter is known for its Great Red Spot, a massive storm that has been raging for at least 400 years, and its many moons, including the four large Galilean moons discovered by Galileo Galilei. Jupiter's strong magnetic field is the most powerful in the solar system, and it has a faint ring system. Its dynamic atmosphere is marked by bands of clouds and intense storms."
+      "history_timeline": [
+        "1659: Christiaan Huygens observes Mars's surface features.",
+        "1965 July: Mariner 4 conducts the first successful flyby of Mars, returning images of its surface.",
+        "1976 July: Viking 1 and Viking 2 land on Mars and conduct experiments to search for signs of life.",
+        "1997 July: Mars Pathfinder lands on Mars, deploying the Sojourner rover for surface exploration.",
+        "2004 January: NASA's Spirit rover lands on Mars, beginning its mission to study the planet's geology and climate.",
+        "2012 August: Curiosity rover lands on Mars, equipped with advanced instruments to assess the planet's habitability and search for signs of past life.",
+        "2021 February: NASA's Perseverance rover successfully lands on Mars, tasked with searching for signs of ancient microbial life and collecting samples for return to Earth."
+      ],
+      "moons": [
+        "Phobos",
+        "Deimos"
+      ],
+      "satellites": [
+        "Mariner 4",
+        "Viking 1",
+        "Viking 2",
+        "Mars Pathfinder",
+        "Curiosity",
+        "Perseverance"
+      ]
+    },
+    {
+      "name": "Jupiter",
+      "basic_info": {
+        "radius": "69,911 km",
+        "orbital_period": "11.86 Earth years",
+        "rotation_period": "9.9 hours",
+        "temperature": {
+          "average": "-145°C"
         },
-        "history_timeline": [
-          "1610: Galileo Galilei discovers Jupiter's four largest moons: Io, Europa, Ganymede, and Callisto.",
-          "1973: Pioneer 10 becomes the first spacecraft to fly by Jupiter.",
-          "1979: Voyager 1 and Voyager 2 provide detailed images and data on Jupiter and its moons.",
-          "1995: Galileo orbiter arrives at Jupiter, conducting detailed studies of the planet and its moons.",
-          "2016-present: Juno mission studies Jupiter's atmosphere, magnetic field, and interior structure."
-        ],
-        "moons": [
-          "Io",
-          "Europa",
-          "Ganymede",
-          "Callisto",
-          "Others (total of 79 moons)"
-        ],
-        "satellites": [
-          "Pioneer 10",
-          "Voyager 1",
-          "Voyager 2",
-          "Galileo",
-          "Juno"
-        ]
+        "distance_from_sun": "778.5 million km",
+        "gravity": "24.79 m/s²",
+        "atmosphere": "Mostly hydrogen and helium, with traces of methane, water vapor, ammonia, and other compounds",
+        "surface": "Gas giant, no solid surface",
+        "magnetic_field": "Very strong, 20,000 times stronger than Earth's",
+        "description": "Jupiter is the largest planet in our solar system and the fifth from the Sun. It is a gas giant with no solid surface, composed mostly of hydrogen and helium. Jupiter is known for its Great Red Spot, a massive storm that has been raging for at least 400 years, and its many moons, including the four large Galilean moons discovered by Galileo Galilei. Jupiter's strong magnetic field is the most powerful in the solar system, and it has a faint ring system. Its dynamic atmosphere is marked by bands of clouds and intense storms."
       },
-      {
-        "name": "Saturn",
-        "basic_info": {
-          "radius": "58,232 km",
-          "orbital_period": "29.45 Earth years",
-          "rotation_period": "10.7 hours",
-          "temperature": {
-            "average": "-178°C"
-          },
-          "distance_from_sun": "1.434 billion km",
-          "gravity": "10.44 m/s²",
-          "atmosphere": "Mostly hydrogen and helium, with traces of methane, ammonia, and other gases",
-          "surface": "Gas giant, no solid surface",
-          "magnetic_field": "Strong, but weaker than Jupiter's",
-          "description": "Saturn is the sixth planet from the Sun and the second-largest in the solar system. It is a gas giant, primarily composed of hydrogen and helium. Saturn is famous for its extensive and complex ring system, made up of ice and rock particles. The planet has at least 82 moons, with Titan being the largest and having a thick atmosphere. Saturn's low density means it would float if placed in water. The planet's atmosphere exhibits banded patterns and long-lasting storms, including a hexagonal storm at the north pole."
+      "history_timeline": [
+        "1610 January: Galileo Galilei discovers Jupiter's four largest moons: Io, Europa, Ganymede, and Callisto.",
+        "1973 December: Pioneer 10 becomes the first spacecraft to fly by Jupiter, providing close-up images and data.",
+        "1979 March: Voyager 1 and Voyager 2 provide detailed images and data on Jupiter and its moons during their flybys.",
+        "1995 December: Galileo orbiter arrives at Jupiter, conducting extensive studies of the planet, its moons, and its magnetosphere.",
+        "2016 July: NASA's Juno spacecraft enters orbit around Jupiter, studying its atmosphere, magnetic field, and interior structure.",
+        "2023: European Space Agency (ESA) and NASA plan to launch the JUICE (JUpiter ICy moons Explorer) mission to study Jupiter's moons Ganymede, Callisto, and Europa."
+      ],
+      "moons": [
+        "Io",
+        "Europa",
+        "Ganymede",
+        "Callisto",
+        "Others (total of 79 moons)"
+      ],
+      "satellites": [
+        "Pioneer 10",
+        "Voyager 1",
+        "Voyager 2",
+        "Galileo",
+        "Juno"
+      ]
+    },
+    {
+      "name": "Saturn",
+      "basic_info": {
+        "radius": "58,232 km",
+        "orbital_period": "29.45 Earth years",
+        "rotation_period": "10.7 hours",
+        "temperature": {
+          "average": "-178°C"
         },
-        "history_timeline": [
-          "1610: Galileo Galilei first observes Saturn's rings, though he does not recognize them as rings.",
-          "1655: Christiaan Huygens identifies Saturn's rings and discovers Titan.",
-          "1979: Pioneer 11 provides the first close-up images of Saturn.",
-          "1980-1981: Voyager 1 and Voyager 2 conduct detailed flybys of Saturn, its rings, and its moons.",
-          "2004-2017: Cassini mission orbits Saturn, providing extensive data and stunning images of the planet, its rings, and its moons."
-        ],
-        "moons": [
-          "Titan",
-          "Enceladus",
-          "Mimas",
-          "Iapetus",
-          "Rhea",
-          "Dione",
-          "Tethys",
-          "Others (total of 82 moons)"
-        ],
-        "satellites": [
-          "Pioneer 11",
-          "Voyager 1",
-          "Voyager 2",
-          "Cassini"
-        ]
+        "distance_from_sun": "1.434 billion km",
+        "gravity": "10.44 m/s²",
+        "atmosphere": "Mostly hydrogen and helium, with traces of methane, ammonia, and other gases",
+        "surface": "Gas giant, no solid surface",
+        "magnetic_field": "Strong, but weaker than Jupiter's",
+        "description": "Saturn is the sixth planet from the Sun and the second-largest in the solar system. It is a gas giant, primarily composed of hydrogen and helium. Saturn is famous for its extensive and complex ring system, made up of ice and rock particles. The planet has at least 82 moons, with Titan being the largest and having a thick atmosphere. Saturn's low density means it would float if placed in water. The planet's atmosphere exhibits banded patterns and long-lasting storms, including a hexagonal storm at the north pole."
       },
-      {
-        "name": "Uranus",
-        "basic_info": {
-          "radius": "25,362 km",
-          "orbital_period": "84 Earth years",
-          "rotation_period": "17.2 hours",
-          "temperature": {
-            "average": "-224°C"
-          },
-          "distance_from_sun": "2.871 billion km",
-          "gravity": "8.69 m/s²",
-          "atmosphere": "Hydrogen, helium, and methane",
-          "surface": "Ice giant with no solid surface",
-          "magnetic_field": "Tilted and offset from the planet's center",
-          "description": "Uranus is the seventh planet from the Sun and the third-largest in the solar system. It is classified as an ice giant, with an atmosphere composed mostly of hydrogen, helium, and methane, giving the planet a blue-green color. Uranus has a unique tilt, rotating on its side, which causes extreme seasonal variations. The planet has a faint ring system and 27 known moons. Uranus's magnetic field is unusual, being both tilted and offset from its rotational axis."
+      "history_timeline": [
+        "1610 July: Galileo Galilei first observes Saturn's rings, though he does not recognize them as rings.",
+        "1655 November: Christiaan Huygens identifies Saturn's rings and discovers Titan, Saturn's largest moon.",
+        "1979 September: Pioneer 11 provides the first close-up images of Saturn, revealing details about its atmosphere and rings.",
+        "1980-1981 November: Voyager 1 and Voyager 2 conduct detailed flybys of Saturn, its rings, and its moons, capturing stunning images and data.",
+        "2004 July: NASA's Cassini spacecraft arrives at Saturn and begins its mission to orbit the planet, study its rings, and explore its moons.",
+        "2017 September: Cassini mission concludes with a planned dive into Saturn's atmosphere, ending its 13-year mission that provided extensive data and breathtaking images."
+      ],
+      "moons": [
+        "Titan",
+        "Enceladus",
+        "Mimas",
+        "Iapetus",
+        "Rhea",
+        "Dione",
+        "Tethys",
+        "Others (total of 82 moons)"
+      ],
+      "satellites": [
+        "Pioneer 11",
+        "Voyager 1",
+        "Voyager 2",
+        "Cassini"
+      ]
+    },
+    {
+      "name": "Uranus",
+      "basic_info": {
+        "radius": "25,362 km",
+        "orbital_period": "84 Earth years",
+        "rotation_period": "17.2 hours",
+        "temperature": {
+          "average": "-224°C"
         },
-        "history_timeline": [
-          "1781: Discovered by William Herschel, becoming the first planet discovered with a telescope.",
-          "1986: Voyager 2 provides the first and only close-up images and data of Uranus and its moons.",
-          "2007: Equinox occurs, providing a unique opportunity to study Uranus's rings and moons."
-        ],
-        "moons": [
-          "Miranda",
-          "Ariel",
-          "Umbriel",
-          "Titania",
-          "Oberon",
-          "Others (total of 27 moons)"
-        ],
-        "satellites": [
-          "Voyager 2"
-        ]
+        "distance_from_sun": "2.871 billion km",
+        "gravity": "8.69 m/s²",
+        "atmosphere": "Hydrogen, helium, and methane",
+        "surface": "Ice giant with no solid surface",
+        "magnetic_field": "Tilted and offset from the planet's center",
+        "description": "Uranus is the seventh planet from the Sun and the third-largest in the solar system. It is classified as an ice giant, with an atmosphere composed mostly of hydrogen, helium, and methane, giving the planet a blue-green color. Uranus has a unique tilt, rotating on its side, which causes extreme seasonal variations. The planet has a faint ring system and 27 known moons. Uranus's magnetic field is unusual, being both tilted and offset from its rotational axis."
       },
-      {
-        "name": "Neptune",
-        "basic_info": {
-          "radius": "24,622 km",
-          "orbital_period": "165 Earth years",
-          "rotation_period": "16.1 hours",
-          "temperature": {
-            "average": "-214°C"
-          },
-          "distance_from_sun": "4.495 billion km",
-          "gravity": "11.15 m/s²",
-          "atmosphere": "Hydrogen, helium, and methane",
-          "surface": "Ice giant with no solid surface",
-          "magnetic_field": "Tilted and offset from the planet's center",
-          "description": "Neptune is the eighth and farthest known planet from the Sun in the solar system. It is an ice giant, similar in composition to Uranus, with an atmosphere rich in hydrogen, helium, and methane, which gives it a deep blue color. Neptune has a dynamic atmosphere with the strongest winds in the solar system, reaching speeds of over 2,000 km/h. The planet has a faint ring system and 14 known moons, with Triton being the largest and geologically active."
+      "history_timeline": [
+        "1781 March: Discovered by William Herschel, becoming the first planet discovered with a telescope.",
+        "1977 January: Voyager 2 conducts a flyby of Uranus, providing the first close-up images and data of the planet and its moons.",
+        "1986 January: Voyager 2 provides detailed images and data during its flyby of Uranus, revealing new insights into its atmosphere, rings, and moons.",
+        "1990s: Hubble Space Telescope captures images of Uranus, revealing seasonal changes in its atmosphere.",
+        "2007 December: Equinox occurs on Uranus, providing a unique opportunity for astronomers to study its rings and moons as they are edge-on to the Sun.",
+        "2011 July: Discovery of a new set of rings around Uranus using infrared observations from the Keck Observatory in Hawaii."
+      ],
+      "moons": [
+        "Miranda",
+        "Ariel",
+        "Umbriel",
+        "Titania",
+        "Oberon",
+        "Others (total of 27 moons)"
+      ],
+      "satellites": [
+        "Voyager 2"
+      ]
+    },
+    {
+      "name": "Neptune",
+      "basic_info": {
+        "radius": "24,622 km",
+        "orbital_period": "165 Earth years",
+        "rotation_period": "16.1 hours",
+        "temperature": {
+          "average": "-214°C"
         },
-        "history_timeline": [
-          "1846: Discovered by Johann Galle based on predictions by Urbain Le Verrier and John Couch Adams.",
-          "1989: Voyager 2 conducts the only flyby of Neptune, providing detailed images and data.",
-          "2011: Neptune completes its first orbit since its discovery."
-        ],
-        "moons": [
-          "Triton",
-          "Proteus",
-          "Nereid",
-          "Larissa",
-          "Others (total of 14 moons)"
-        ],
-        "satellites": [
-          "Voyager 2"
-        ]
-      }
-    ]
-  }
-  
+        "distance_from_sun": "4.495 billion km",
+        "gravity": "11.15 m/s²",
+        "atmosphere": "Hydrogen, helium, and methane",
+        "surface": "Ice giant with no solid surface",
+        "magnetic_field": "Tilted and offset from the planet's center",
+        "description": "Neptune is the eighth and farthest known planet from the Sun in the solar system. It is an ice giant, similar in composition to Uranus, with an atmosphere rich in hydrogen, helium, and methane, which gives it a deep blue color. Neptune has a dynamic atmosphere with the strongest winds in the solar system, reaching speeds of over 2,000 km/h. The planet has a faint ring system and 14 known moons, with Triton being the largest and geologically active."
+      },
+      "history_timeline": [
+        "1846 September: Discovered by Johann Galle based on predictions by Urbain Le Verrier and John Couch Adams.",
+        "1989 August: Voyager 2 conducts the only flyby of Neptune, providing detailed images and data of the planet, its rings, and its moons.",
+        "2011 July: Neptune completes its first full orbit since its discovery in 1846, marking its first return to the exact point in its orbit.",
+        "2015 October: Hubble Space Telescope captures images of a giant storm on Neptune, similar to the Great Red Spot on Jupiter.",
+        "2022 October: Discovery of a new moon orbiting Neptune, named Hippocamp, by astronomers using Hubble Space Telescope data."
+      ],
+      "moons": [
+        "Triton",
+        "Proteus",
+        "Nereid",
+        "Larissa",
+        "Others (total of 14 moons)"
+      ],
+      "satellites": [
+        "Voyager 2"
+      ]
+    }
+  ]
+}
