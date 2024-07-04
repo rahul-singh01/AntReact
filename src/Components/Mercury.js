@@ -31,7 +31,7 @@ function calculateMercuryPosition() {
     };
 }
 
-export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
+export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState }) {
     let time = useRef(0);
     let mercuryTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -75,14 +75,19 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
         }
     });
 
-    const handleClick = () => {
+    const handleClick = (num) => {
         setShowOrbit(!showOrbit);
         selectedPlanet.current = mercuryConstants.selectedPlanet;
-        if (!showOrbit) setSelectedPlanetState(0);
-
+        setSelectedPlanetState((prev)=>{
+            if (prev === num) {
+                return 0;
+            }
+            return num;
+        });
+        
         // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
         radiusRef.current = mercuryConstants.radius;
-        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
     };
 
     const handlePointerOver = () => {
@@ -100,7 +105,7 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
     return (
         <>
             <mesh
-                onClick={handleClick}
+                onClick={()=>{handleClick(mercuryConstants.selectedPlanet)}}
                 onPointerOver={handlePointerOver}
                 onPointerOut={handlePointerOut}
                 ref={mercuryRef}
@@ -117,7 +122,7 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
                     emissiveIntensity={hovered ? 10 : 1}
                     attach="material"
                 />
-                {showOrbit &&
+                {selectedPlanetState!=mercuryConstants.selectedPlanet &&
                     <Text
                         position={[0, 1, 0]}
                         fontSize={0.5}
@@ -131,7 +136,7 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
                     </Text>
                 }
             </mesh>
-            {showOrbit &&
+            {selectedPlanetState!=mercuryConstants.selectedPlanet &&
                 <Orbit coordinates={MercuryOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }
         </>

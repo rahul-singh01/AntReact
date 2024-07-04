@@ -11,7 +11,7 @@ function calculateEarthPosition() {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
   const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
-  const yearLength = 365.25; 
+  const yearLength = 365.25;
   const meanAnomaly = (2 * Math.PI * dayOfYear) / yearLength;
 
   const eccentricity = 0.0167;
@@ -33,7 +33,7 @@ function calculateEarthPosition() {
   };
 }
 
-export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
+export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState }) {
   const time = useRef(Date.now());
   const earthTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -89,18 +89,25 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
     document.body.style.cursor = "auto";
   };
 
-  const handleClick = () => {
+  const handleClick = (num) => {
     setShowOrbit(!showOrbit);
     selectedPlanet.current = earthConstants.selectedPlanet;
-    if (!showOrbit) setSelectedPlanetState(0)
-    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
-    radiusRef.current = earthConstants.radius;
-    followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    setSelectedPlanetState((prev) => {
+      if (prev === num) {
+        return 0;
+      }
+      return num;
+    }
+  );
+  // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+  radiusRef.current = earthConstants.radius;
+  followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
+    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 
   return (
     <>
-      <mesh onClick={handleClick} ref={earthRef}
+      <mesh onClick={() => { handleClick(earthConstants.selectedPlanet) }} ref={earthRef}
         onPointerOver={handlePointerOver}
         onPointerOut={handlePointerOut}
         style={{ cursor: hovered ? "pointer" : "auto" }}
@@ -111,7 +118,7 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
           position={[0, 0, 0]}
           ref={earthRef}
         />
-        {showOrbit &&
+        {selectedPlanetState!= earthConstants.selectedPlanet &&
           <Text
             position={[0, 1, 0]}
             fontSize={0.5}
@@ -125,7 +132,7 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
           </Text>
         }
       </mesh>
-      {showOrbit &&
+      {selectedPlanetState != earthConstants.selectedPlanet &&
         <Orbit coordinates={EarthOrbit} color={color} hoverColor={"green"} thickness={10} />
       }
     </>

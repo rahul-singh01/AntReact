@@ -32,7 +32,7 @@ function calculateSaturnPosition() {
     };
 }
 
-export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
+export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState}) {
     const time = useRef(Date.now());
     const saturnTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -90,11 +90,19 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
+        const num = saturnConstants.selectedPlanet;
         selectedPlanet.current = saturnConstants.selectedPlanet;
-        if (!showOrbit) setSelectedPlanetState(0);
+        setSelectedPlanetState((prev)=>{
+            if (prev === saturnConstants.selectedPlanet) {
+                return 0;
+            } else {
+                return saturnConstants.selectedPlanet;
+            }
+        })
         // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
         radiusRef.current = saturnConstants.radius;
-        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
     };
 
     return (
@@ -118,7 +126,7 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
                     attach="material"
                 />
                 {
-                    showOrbit &&
+                    selectedPlanetState !== saturnConstants.selectedPlanet &&
                     <Text
                         position={[0, 1, 0]}
                         fontSize={0.5}
@@ -132,7 +140,7 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
                     </Text>
                 }
             </mesh>
-            {showOrbit &&
+            {selectedPlanetState !== saturnConstants.selectedPlanet &&
                 <Orbit coordinates={SaturnOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }
         </>

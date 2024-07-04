@@ -32,7 +32,7 @@ function calculateNeptunePosition() {
   };
 }
 
-export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
+export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState }) {
   const time = useRef(Date.now());
   const neptuneTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -90,11 +90,18 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
+    const num = neptuneConstants.selectedPlanet;
     selectedPlanet.current = neptuneConstants.selectedPlanet;
-    if (!showOrbit) setSelectedPlanetState(0);
+    setSelectedPlanetState((prev) => {
+      if (prev === neptuneConstants.selectedPlanet) {
+        return 0;
+      }
+      return neptuneConstants.selectedPlanet;
+    });
     // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = neptuneConstants.radius;
-    followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
   };
 
   return (
@@ -118,7 +125,7 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
           attach="material"
         />
         {
-          showOrbit &&
+          selectedPlanetState !== neptuneConstants.selectedPlanet &&
           <Text
             position={[0, 1, 0]}
             fontSize={0.5}
@@ -132,7 +139,7 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
           </Text>
         }
       </mesh>
-      {showOrbit &&
+      {selectedPlanetState !== neptuneConstants.selectedPlanet &&
         <Orbit coordinates={NeptuneOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }
     </>

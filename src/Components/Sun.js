@@ -9,11 +9,9 @@ export default function Sun() {
   const lightRef = useRef();
   const { scene } = useThree();
 
-  // Create a white point light
   const lightColor = 'white';
   const lightIntensity = 1;
   const light = new THREE.PointLight(lightColor, lightIntensity);
-  // Add the light to the scene
   scene.add(light);
 
   // useFrame(() => {

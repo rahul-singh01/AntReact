@@ -42,7 +42,7 @@ function App() {
             // backgroundColor: 'black',
             position: 'absolute',
           }}>
-            <SolarSystemPlane selectedPlanet={selectedPlanet} setSelectedPlanetState={setSelectedPlanetState}/>
+            <SolarSystemPlane selectedPlanetState={selectedPlanetState} selectedPlanet={selectedPlanet} setSelectedPlanetState={setSelectedPlanetState}/>
           </Canvas>
         </Box>
       </Box>

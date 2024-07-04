@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import React, { useEffect, useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
 const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanetRef, setSelectedPlanetState }) => {
-    
-    
     const sphericalCoordsRef = useRef({ theta: 0, phi: 0, r: 5 });
     const { camera, gl } = useThree();
     const controls = useRef();
@@ -13,6 +12,7 @@ const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanet
 
     useEffect(() => {
         controls.current = new OrbitControls(camera, gl.domElement);
+        controls.current.maxDistance = 450; 
         return () => {
             controls.current.dispose();
         };
@@ -42,7 +42,13 @@ const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanet
     };
 
     const handleWheel = (event) => {
-        sphericalCoordsRef.current.r = Math.max(radiusRef.current/2, sphericalCoordsRef.current.r + event.deltaY * 0.01);
+        const newR = sphericalCoordsRef.current.r + event.deltaY * 0.01;
+        const cameraPosition = camera.position.clone();
+        const distanceFromOrigin = cameraPosition.length(); 
+        if (distanceFromOrigin < 450 || event.deltaY < 0) {
+            sphericalCoordsRef.current.r = newR;
+        }
+        sphericalCoordsRef.current.r = THREE.MathUtils.clamp(sphericalCoordsRef.current.r, radiusRef.current / 2, 450);
     };
 
     useEffect(() => {
@@ -69,7 +75,7 @@ const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanet
     useFrame(() => {
         const selectedPlanet = selectedPlanetRef.current;
         const planetRef = planetRefs[selectedPlanet];
-        if (controls.current ) {
+        if (controls.current) {
             const followPlanet = followPlanetRef.current;
             if (followPlanet === 1) {
                 const { x, y, z } = planetRef.current.position;

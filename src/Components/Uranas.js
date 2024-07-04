@@ -32,7 +32,7 @@ function calculateUranusPosition() {
     };
 }
 
-export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
+export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState}) {
     const time = useRef(Date.now());
     const uranusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -90,11 +90,19 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
+        const num = uranusConstants.selectedPlanet;
         selectedPlanet.current = uranusConstants.selectedPlanet;
-        if (!showOrbit) setSelectedPlanetState(0);
+        setSelectedPlanetState((prev)=>{
+            if (prev === uranusConstants.selectedPlanet) {
+                return 0;
+            }
+            return uranusConstants.selectedPlanet;
+        
+        })
         // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
         radiusRef.current = uranusConstants.radius;
-        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
     };
 
     return (
@@ -118,7 +126,7 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
                     attach="material"
                 />
                 {
-                    showOrbit &&
+                    selectedPlanetState !== uranusConstants.selectedPlanet &&
                     <Text
                         position={[0, 1, 0]}
                         fontSize={0.5}
@@ -132,7 +140,7 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
                     </Text>
                 }
             </mesh>
-            {showOrbit &&
+            {selectedPlanetState !== uranusConstants.selectedPlanet &&
                 <Orbit coordinates={UranusOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }
         </>

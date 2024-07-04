@@ -31,7 +31,7 @@ function calculateMarsPosition() {
   };
 }
 
-export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState }) {
+export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState }) {
   let time = useRef(0);
   let marsTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -78,11 +78,18 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
 
   const handleClick = () => {
     setShowOrbit(!showOrbit);
+    const num = marsConstants.selectedPlanet;
     selectedPlanet.current = marsConstants.selectedPlanet;
-    if (!showOrbit) setSelectedPlanetState(0);
+    setSelectedPlanetState((prev)=>{
+      if (prev === marsConstants.selectedPlanet) {
+        return 0;
+      }
+      return marsConstants.selectedPlanet;
+    })
     // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = marsConstants.selectedPlanet;
-    followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
+    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 
   const handlePointerOver = () => {
@@ -117,7 +124,7 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
           emissiveIntensity={hovered ? 10 : 1}
           attach="material"
         />
-        {showOrbit &&
+        {selectedPlanetState !== marsConstants.selectedPlanet &&
           <Text
             position={[0, 1, 0]}
             fontSize={0.5}
@@ -131,7 +138,7 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
           </Text>
         }
       </mesh>
-      {showOrbit &&
+      {selectedPlanetState !== marsConstants.selectedPlanet &&
         <Orbit coordinates={MarsOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }
     </>

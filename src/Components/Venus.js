@@ -32,7 +32,7 @@ function calculateVenusPosition() {
     };
 }
 
-export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
+export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState}) {
     const time = useRef(Date.now());
     const venusTextRef = useRef(null);
     const [showOrbit, setShowOrbit] = useState(true);
@@ -78,11 +78,17 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
 
     const handleClick = () => {
         setShowOrbit(!showOrbit);
+        const num = venusConstants.selectedPlanet;
         selectedPlanet.current = venusConstants.selectedPlanet;
-        if (!showOrbit) setSelectedPlanetState(0);
-        // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
+        setSelectedPlanetState((prev)=>{
+            if (prev === venusConstants.selectedPlanet) {
+                return 0;
+            }
+            return venusConstants.selectedPlanet;
+        })
         radiusRef.current = venusConstants.radius;
-        followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+        followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
     };
 
     const handlePointerOver = () => {
@@ -118,7 +124,7 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
                     attach="material"
                 />
                 {
-                    showOrbit &&
+                    selectedPlanetState!=venusConstants.selectedPlanet &&
                     <Text
                         position={[0, 1, 0]}
                         fontSize={0.5}
@@ -132,7 +138,7 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
                     </Text>
                 }
             </mesh>
-            {showOrbit &&
+            {selectedPlanetState!=venusConstants.selectedPlanet &&
                 <Orbit coordinates={VenusOrbit} color={color} thickness={10} />
             }
         </>

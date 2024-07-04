@@ -150,6 +150,15 @@ const neptuneConstants = {
     textHoverColor: "yellow",
 };
 
+const starsConstants = {
+    distance: 500,
+    lowerLimit: 0,
+    upperLimit: 3.14 * 2,
+    color: 0x888888,
+    rotationSpeed: 0.0001,
+    starCount: 8000,
+};
+
 module.exports = {
     mercuryConstants,
     venusConstants,
@@ -159,4 +168,5 @@ module.exports = {
     saturnConstants,
     uranusConstants,
     neptuneConstants,
+    starsConstants,
 };

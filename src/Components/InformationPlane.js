@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Typography, keyframes } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InformationDisplay from "../Constants/informationDisplay.json";
 import { Stepper, Step, StepLabel } from '@mui/material';
 import styled from "styled-components";
@@ -25,6 +25,15 @@ const slideOutLeft = keyframes`
 export default function InformationPlane({ selectedPlanetState = 0 }) {
   const [isOpen, setIsOpen] = useState(true);
   const [activeStep, setActiveStep] = useState(null);
+  const [isVisible, setIsVisible] = useState(false); // State to manage visibility
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 3000); // 3 seconds delay
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
 
   const togglePanels = () => {
     setIsOpen(!isOpen);
@@ -36,6 +45,10 @@ export default function InformationPlane({ selectedPlanetState = 0 }) {
       borderRadius: '4px',
     },
   });
+
+  if (!isVisible) {
+    return null; // Return null if not visible
+  }
 
   return (
     <>

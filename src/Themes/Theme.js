@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-// Define the color palette with meaningful names and different shades
 const colorPalette = {
   ocean: {
     light: '#a7c7e7',
@@ -64,7 +63,6 @@ const colorPalette = {
   },
 };
 
-// Create the theme
 const theme = createTheme({
   palette: {
     ocean: colorPalette.ocean,

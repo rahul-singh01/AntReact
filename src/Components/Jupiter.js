@@ -31,7 +31,7 @@ function calculateJupiterPosition() {
   };
 }
 
-export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState}) {
+export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState}) {
   let time = useRef(0);
   const jupiterTextRef = useRef(null);
   const [showOrbit, setShowOrbit] = useState(true);
@@ -76,14 +76,19 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
   });
 
   const handleClick = () => {
+    const num = jupiterConstants.selectedPlanet;
     setShowOrbit(!showOrbit);
     selectedPlanet.current = jupiterConstants.selectedPlanet;
-    if (!showOrbit) {
-      setSelectedPlanetState(0);
-    }
+    setSelectedPlanetState((prev)=>{
+      if (prev === num) {
+        return 0;
+      }
+      return num;
+    })
     // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = jupiterConstants.radius;
-    followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
+    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
   };
 
   const handlePointerOver = () => {
@@ -118,7 +123,7 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
           emissiveIntensity={hovered ? 10 : 1}
           attach="material"
         />
-        {showOrbit &&
+        {selectedPlanetState !== jupiterConstants.selectedPlanet &&
           <Text
             position={[0, 1, 0]}
             fontSize={0.5}
@@ -132,7 +137,7 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
           </Text>
         }
       </mesh>
-      {showOrbit &&
+      {selectedPlanetState !== jupiterConstants.selectedPlanet &&
         <Orbit coordinates={JupiterOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }
     </>
