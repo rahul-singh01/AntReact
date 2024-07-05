@@ -3,6 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import ModelProcessor from '../Utils/ModelProccessor';
 import Orbit from './Orbit';
 import MarsOrbit from '../Constants/marsOrbit.json';
+import PhobosOrbit from '../Constants/phobosOrbit.json';
 import { marsConstants } from '../Constants/ShapeCoordsContants';
 import { Text } from '@react-three/drei';
 
@@ -10,7 +11,7 @@ function calculateMarsPosition() {
   const now = new Date();
   const startOfYear = new Date(now.getFullYear(), 0, 0);
   const dayOfYear = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
-  const yearLength = 687; 
+  const yearLength = 687;
   const meanAnomaly = (2 * Math.PI * dayOfYear) / yearLength;
 
   const eccentricity = 0.0934;
@@ -38,7 +39,8 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
   const [hovered, setHovered] = useState(false);
   const [color, setColor] = useState(marsConstants.color);
   const { camera } = useThree();
-
+  const phobosRef = useRef(null);
+  const deimosRef = useRef(null);
   useEffect(() => {
     const initialPosition = calculateMarsPosition();
     if (marsRef.current) {
@@ -57,6 +59,22 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
       marsRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * marsConstants.minorAxis + marsConstants.offsetZ;
       marsRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(marsConstants.tilt) * marsConstants.majorAxis + marsConstants.offsetY;
 
+      if (phobosRef.current) {
+        const phobosAngle = ( Math.PI * time.current) / (30*marsConstants.phobos.orbitalPeriod);
+        phobosRef.current.position.x = marsRef.current.position.x + marsConstants.phobos.majorAxis * Math.cos(phobosAngle);
+        phobosRef.current.position.z = marsRef.current.position.z + marsConstants.phobos.minorAxis * Math.sin(phobosAngle);
+        phobosRef.current.position.y = marsRef.current.position.y + marsConstants.phobos.distance * Math.cos(phobosAngle) 
+        phobosRef.current.rotation.y += marsConstants.phobos.rotationSpeed;
+    }
+    
+    if (deimosRef.current) {
+        const deimosAngle = ( Math.PI * time.current) / (20*marsConstants.phobos.orbitalPeriod);
+        deimosRef.current.position.x = marsRef.current.position.x + marsConstants.deimos.majorAxis * Math.cos(deimosAngle);
+        deimosRef.current.position.z = marsRef.current.position.z + marsConstants.deimos.minorAxis * Math.sin(deimosAngle);
+        deimosRef.current.position.y = marsRef.current.position.y + marsConstants.deimos.distance * Math.sin(deimosAngle) * Math.sin(marsConstants.deimos.tilt);
+        deimosRef.current.rotation.y += marsConstants.deimos.rotationSpeed;
+    }
+
       const axialTilt = marsConstants.axialTilt;
       marsRef.current.rotation.x = axialTilt;
 
@@ -64,7 +82,7 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
 
       const distance = marsRef.current.position.distanceTo(camera.position);
       if (showOrbit) {
-        if (distance > 35) {
+        if (distance > 20) {
           let textScale = distance / 20;
           marsTextRef.current.scale.set(textScale, textScale, textScale);
           marsTextRef.current.position.y = 0.45 * textScale;
@@ -80,16 +98,14 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
     setShowOrbit(!showOrbit);
     const num = marsConstants.selectedPlanet;
     selectedPlanet.current = marsConstants.selectedPlanet;
-    setSelectedPlanetState((prev)=>{
+    setSelectedPlanetState((prev) => {
       if (prev === marsConstants.selectedPlanet) {
         return 0;
       }
       return marsConstants.selectedPlanet;
     })
-    // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
     radiusRef.current = marsConstants.selectedPlanet;
-    followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
-    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    followPlanetRef.current = (selectedPlanetState === num) ? (followPlanetRef.current + 1) % 3 : 1;
   };
 
   const handlePointerOver = () => {
@@ -137,7 +153,20 @@ export default function Mars({ marsRef, followPlanetRef, radiusRef, selectedPlan
             Mars
           </Text>
         }
+        
       </mesh>
+      <ModelProcessor
+        url={require("../Models/Phobos.glb")}
+        scale={marsConstants.phobos.modelScale}
+        position={[0.5, 0, 0]}
+        ref={phobosRef}
+      />
+      <ModelProcessor
+        url={require("../Models/Deimos.glb")}
+        scale={marsConstants.deimos.modelScale}
+        position={[-0.5, 0, 0]}
+        ref={deimosRef}
+      />
       {selectedPlanetState !== marsConstants.selectedPlanet &&
         <Orbit coordinates={MarsOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }

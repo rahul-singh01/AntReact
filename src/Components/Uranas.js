@@ -39,7 +39,10 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(uranusConstants.color);
     const { camera } = useThree();
-
+    const titaniaRef = useRef(null);
+    const oberonRef = useRef(null);
+    const umbrielRef = useRef(null);
+    const arielRef = useRef(null);
     useEffect(() => {
         const initialPosition = calculateUranusPosition();
         if (uranusRef.current) {
@@ -58,19 +61,47 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
             uranusRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * uranusConstants.minorAxis + uranusConstants.offsetZ;
             uranusRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(uranusConstants.tilt) * uranusConstants.majorAxis + uranusConstants.offsetY;
 
+            if (titaniaRef.current) {
+                titaniaRef.current.rotation.y += uranusConstants.titania.rotationSpeed;
+                titaniaRef.current.position.x = uranusRef.current.position.x + uranusConstants.titania.majorAxis * Math.cos((2 * Math.PI * time.current) / uranusConstants.titania.orbitalPeriod);
+                titaniaRef.current.position.z = uranusRef.current.position.z + uranusConstants.titania.minorAxis * Math.sin((2 * Math.PI * time.current) / uranusConstants.titania.orbitalPeriod);
+                titaniaRef.current.position.y = uranusRef.current.position.y + uranusConstants.titania.distance * Math.cos((2 * Math.PI * time.current) / uranusConstants.titania.orbitalPeriod);
+            }
+
+            if (oberonRef.current) {
+                oberonRef.current.rotation.y += uranusConstants.oberon.rotationSpeed;
+                oberonRef.current.position.x = uranusRef.current.position.x + uranusConstants.oberon.majorAxis * Math.cos((2 * Math.PI * time.current) / uranusConstants.oberon.orbitalPeriod);
+                oberonRef.current.position.z = uranusRef.current.position.z + uranusConstants.oberon.minorAxis * Math.sin((2 * Math.PI * time.current) / uranusConstants.oberon.orbitalPeriod);
+                oberonRef.current.position.y = uranusRef.current.position.y + uranusConstants.oberon.distance * Math.sin((2 * Math.PI * time.current) / uranusConstants.oberon.orbitalPeriod);
+            }
+
+            if (umbrielRef.current) {
+                umbrielRef.current.rotation.y += uranusConstants.umbriel.rotationSpeed;
+                umbrielRef.current.position.x = uranusRef.current.position.x + uranusConstants.umbriel.majorAxis * Math.cos((2 * Math.PI * time.current) / uranusConstants.umbriel.orbitalPeriod);
+                umbrielRef.current.position.z = uranusRef.current.position.z + uranusConstants.umbriel.minorAxis * Math.sin((2 * Math.PI * time.current) / uranusConstants.umbriel.orbitalPeriod);
+                umbrielRef.current.position.y = uranusRef.current.position.y + uranusConstants.umbriel.distance * Math.sin((2 * Math.PI * time.current) / uranusConstants.umbriel.orbitalPeriod);
+            }
+
+            if (arielRef.current) {
+                arielRef.current.rotation.y += uranusConstants.ariel.rotationSpeed;
+                arielRef.current.position.x = uranusRef.current.position.x + uranusConstants.ariel.majorAxis * Math.cos((2 * Math.PI * time.current) / uranusConstants.ariel.orbitalPeriod);
+                arielRef.current.position.z = uranusRef.current.position.z + uranusConstants.ariel.minorAxis * Math.sin((2 * Math.PI * time.current) / uranusConstants.ariel.orbitalPeriod);
+                arielRef.current.position.y = uranusRef.current.position.y + uranusConstants.ariel.distance 
+            }
+
             const axialTilt = uranusConstants.axialTilt;
             uranusRef.current.rotation.x = axialTilt;
 
             uranusTextRef?.current?.lookAt(camera.position);
             const distance = uranusRef.current.position.distanceTo(camera.position);
             if (showOrbit) {
-                if (distance > 35) {
+                if (distance > 25) {
                     let textScale = distance / 20;
                     uranusTextRef.current.scale.set(textScale, textScale, textScale);
-                    uranusTextRef.current.position.y = 0.45 * textScale;
+                    uranusTextRef.current.position.y = 1.75
                 } else {
                     uranusTextRef.current.position.y = 1.75;
-                    uranusTextRef.current.scale.set(0.5, 0.5, 0.5);
+                    uranusTextRef.current.scale.set(1.5, 1.5, 1.5);
                 }
             }
         }
@@ -140,6 +171,30 @@ export default function Uranus({ uranusRef, followPlanetRef, radiusRef, selected
                     </Text>
                 }
             </mesh>
+            <ModelProcessor
+                url={require("../Models/Titania.glb")}
+                scale={uranusConstants.titania.modelScale}
+                position={[0, 0, 0]}
+                ref={titaniaRef}
+            />
+            <ModelProcessor
+                url={require("../Models/Oberon.glb")}
+                scale={uranusConstants.oberon.modelScale}
+                position={[0, 0, 0]}
+                ref={oberonRef}
+            />
+            <ModelProcessor
+                url={require("../Models/Umbriel.glb")}
+                scale={uranusConstants.umbriel.modelScale}
+                position={[0, 0, 0]}
+                ref={umbrielRef}
+            />
+            <ModelProcessor
+                url={require("../Models/Ariel.glb")}
+                scale={uranusConstants.ariel.modelScale}
+                position={[0, 0, 0]}
+                ref={arielRef}
+            />
             {selectedPlanetState !== uranusConstants.selectedPlanet &&
                 <Orbit coordinates={UranusOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }

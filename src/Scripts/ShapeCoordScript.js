@@ -47,7 +47,7 @@ CoordinateGeneratorAndSaver(EllipseCoordGenerator, saturnConstants, 'saturnOrbit
 CoordinateGeneratorAndSaver(EllipseCoordGenerator, uranusConstants, 'uranusOrbit.json');
 CoordinateGeneratorAndSaver(EllipseCoordGenerator, neptuneConstants, 'neptuneOrbit.json');
 // CoordinateGeneratorAndSaver(EllipseCoordGenerator, jupiterOrbitOptions, 'jupiterOrbit.json');
-
+CoordinateGeneratorAndSaver(EllipseCoordGenerator, marsConstants.phobos, 'phobosOrbit.json');
 const circularPathOptions = {
     steps: 1,
     radius: 50,

@@ -34,11 +34,13 @@ function calculateJupiterPosition() {
 export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState}) {
   let time = useRef(0);
   const jupiterTextRef = useRef(null);
-  const [showOrbit, setShowOrbit] = useState(true);
   const [hovered, setHovered] = useState(false);
-  const [color, setColor] = useState("yellow");
+  const [color, setColor] = useState(jupiterConstants.color);
   const { camera } = useThree();
-
+  const IoRef = useRef(null);
+  const EuropaRef = useRef(null);
+  const GanymedeRef = useRef(null);
+  const CallistoRef = useRef(null);
   useEffect(() => {
     const initialPosition = calculateJupiterPosition();
     if (jupiterRef.current) {
@@ -57,18 +59,42 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
       jupiterRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * jupiterConstants.minorAxis + jupiterConstants.offsetZ;
       jupiterRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(jupiterConstants.tilt) * jupiterConstants.majorAxis + jupiterConstants.offsetY;
 
+      if (IoRef.current) {
+        IoRef.current.position.x = jupiterRef.current.position.x + jupiterConstants.io.distance * Math.cos((2 * Math.PI * time.current) / jupiterConstants.io.orbitalPeriod);
+        IoRef.current.position.z = jupiterRef.current.position.z + jupiterConstants.io.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.io.orbitalPeriod);
+        IoRef.current.position.y = jupiterRef.current.position.y + jupiterConstants.io.distance * Math.cos((2 * Math.PI * time.current) / jupiterConstants.io.orbitalPeriod) 
+      }
+
+      if (EuropaRef.current) {
+        EuropaRef.current.position.x = jupiterRef.current.position.x + jupiterConstants.europa.distance * Math.cos((2 * Math.PI * time.current) / jupiterConstants.europa.orbitalPeriod);
+        EuropaRef.current.position.z = jupiterRef.current.position.z + jupiterConstants.europa.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.europa.orbitalPeriod);
+        EuropaRef.current.position.y = jupiterRef.current.position.y  
+      }
+
+      if (GanymedeRef.current) {
+        GanymedeRef.current.position.x = jupiterRef.current.position.x + jupiterConstants.ganymede.distance * Math.cos((2 * Math.PI * time.current) / jupiterConstants.ganymede.orbitalPeriod);
+        GanymedeRef.current.position.z = jupiterRef.current.position.z + jupiterConstants.ganymede.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.ganymede.orbitalPeriod);
+        GanymedeRef.current.position.y = jupiterRef.current.position.y + jupiterConstants.ganymede.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.ganymede.orbitalPeriod)
+      }
+
+      if (CallistoRef.current) {
+        CallistoRef.current.position.x = jupiterRef.current.position.x + jupiterConstants.callisto.distance * Math.cos((2 * Math.PI * time.current) / jupiterConstants.callisto.orbitalPeriod);
+        CallistoRef.current.position.z = jupiterRef.current.position.z + jupiterConstants.callisto.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.callisto.orbitalPeriod);
+        CallistoRef.current.position.y = jupiterRef.current.position.y + jupiterConstants.callisto.distance * Math.sin((2 * Math.PI * time.current) / jupiterConstants.callisto.orbitalPeriod)*-1
+      }
+
       const axialTilt = jupiterConstants.axialTilt;
       jupiterRef.current.rotation.x = axialTilt;
 
       jupiterTextRef?.current?.lookAt(camera.position);
       const distance = jupiterRef.current.position.distanceTo(camera.position);
-      if (showOrbit) {
-        if (distance > 35) {
+      if (selectedPlanetState !== jupiterConstants.selectedPlanet) {
+        if (distance > 15) {
           let textScale = distance / 20;
           jupiterTextRef.current.scale.set(textScale, textScale, textScale);
-          jupiterTextRef.current.position.y = 0.45 * textScale;
+          jupiterTextRef.current.position.y = 1.25;
         } else {
-          jupiterTextRef.current.position.y = 0.75;
+          jupiterTextRef.current.position.y = 0.85;
           jupiterTextRef.current.scale.set(0.5, 0.5, 0.5);
         }
       }
@@ -77,7 +103,7 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
 
   const handleClick = () => {
     const num = jupiterConstants.selectedPlanet;
-    setShowOrbit(!showOrbit);
+    
     selectedPlanet.current = jupiterConstants.selectedPlanet;
     setSelectedPlanetState((prev)=>{
       if (prev === num) {
@@ -93,13 +119,13 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
 
   const handlePointerOver = () => {
     setHovered(true);
-    setColor("blue");
+    setColor(jupiterConstants.hoverColor);
     document.body.style.cursor = "pointer";
   };
 
   const handlePointerOut = () => {
     setHovered(false);
-    setColor("yellow");
+    setColor(jupiterConstants.color);
     document.body.style.cursor = "auto";
   };
 
@@ -137,6 +163,29 @@ export default function Jupiter({ jupiterRef, followPlanetRef, radiusRef, select
           </Text>
         }
       </mesh>
+      <ModelProcessor url={require("../Models/Io.glb")}
+        scale={jupiterConstants.io.modelScale}
+        position={[jupiterConstants.io.distance, 0, 0]}
+        ref={IoRef}
+      />
+      <ModelProcessor
+        url={require("../Models/Europa.glb")}
+        scale={jupiterConstants.europa.modelScale}
+        position={[jupiterConstants.europa.distance, 0, 0]}
+        ref={EuropaRef}
+      />
+      <ModelProcessor
+        url={require("../Models/Ganymede.glb")}
+        scale={jupiterConstants.ganymede.modelScale}
+        position={[jupiterConstants.ganymede.distance, 0, 0]}
+        ref={GanymedeRef}
+      />
+      <ModelProcessor
+        url={require("../Models/Callisto.glb")}
+        scale={jupiterConstants.callisto.modelScale}
+        position={[jupiterConstants.callisto.distance, 0, 0]}
+        ref={CallistoRef}
+      />
       {selectedPlanetState !== jupiterConstants.selectedPlanet &&
         <Orbit coordinates={JupiterOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }

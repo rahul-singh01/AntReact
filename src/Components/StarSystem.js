@@ -7,10 +7,12 @@ export default function StarSystem() {
   const groupRef = useRef();
 
   useEffect(() => {
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsMaterial = new THREE.PointsMaterial({ color: 0x888888, emissive: 0x888888, decay: 0, emissiveIntensity: 1, size: 0.30});
-
-    const starVertices = [];
+    const blueStarsGeometry = new THREE.BufferGeometry();
+    const goldenStarsGeometry = new THREE.BufferGeometry();
+    
+    const blueStarVertices = [];
+    const goldenStarVertices = [];
+    
     for (let i = 0; i < starsConstants.starCount; i++) {
       const theta = THREE.MathUtils.randFloat(0, Math.PI * 2);
       const phi = THREE.MathUtils.randFloat(0, Math.PI);
@@ -20,12 +22,35 @@ export default function StarSystem() {
       const y = r * Math.sin(phi) * Math.sin(theta);
       const z = r * Math.cos(phi);
 
-      starVertices.push(x, y, z);
+      if (Math.random() < 0.5) {
+        blueStarVertices.push(x, y, z);
+      } else {
+        goldenStarVertices.push(x, y, z);
+      }
     }
-    starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
 
-    const stars = new THREE.Points(starsGeometry, starsMaterial);
-    groupRef.current.add(stars);
+    blueStarsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(blueStarVertices, 3));
+    goldenStarsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(goldenStarVertices, 3));
+
+    const blueStarsMaterial = new THREE.PointsMaterial({ 
+      color: 0x0000ff, 
+      emissive: 0x0000ff, 
+      emissiveIntensity: 1.5, 
+      size: 1.0 
+    });
+
+    const goldenStarsMaterial = new THREE.PointsMaterial({ 
+      color: 0xffd700, 
+      emissive: 0xffd700, 
+      emissiveIntensity: 0.5, 
+      size: 0.30
+    });
+
+    const blueStars = new THREE.Points(blueStarsGeometry, blueStarsMaterial);
+    const goldenStars = new THREE.Points(goldenStarsGeometry, goldenStarsMaterial);
+    
+    groupRef.current.add(blueStars);
+    groupRef.current.add(goldenStars);
   }, []);
 
   useFrame(() => {

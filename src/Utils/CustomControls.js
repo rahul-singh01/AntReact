@@ -110,6 +110,10 @@ const CustomControls = ({ followPlanetRef, planetRefs, radiusRef, selectedPlanet
             controls.current.update();
         } else {
             controls?.current?.target?.set(0, 0, 0);
+            camera.lookAt(0, 0, 0);
+            camera.translateX(20);
+            camera.translateZ(20);
+            camera.translateY(20);
             controls?.current?.update();
         }
     });

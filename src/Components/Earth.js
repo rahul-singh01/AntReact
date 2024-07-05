@@ -16,7 +16,6 @@ function calculateEarthPosition() {
 
   const eccentricity = 0.0167;
 
-
   let E = meanAnomaly;
   for (let i = 0; i < 5; i++) {
     E = meanAnomaly + eccentricity * Math.sin(E);
@@ -36,10 +35,10 @@ function calculateEarthPosition() {
 export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPlanet, setSelectedPlanetState, selectedPlanetState }) {
   const time = useRef(Date.now());
   const earthTextRef = useRef(null);
-  const [showOrbit, setShowOrbit] = useState(true);
   const [hovered, setHovered] = useState(false);
   const [color, setColor] = useState(earthConstants.color);
   const { camera } = useThree();
+  const moonRef = useRef(null);
 
   useEffect(() => {
     const initialPosition = calculateEarthPosition();
@@ -55,16 +54,27 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
       earthRef.current.rotation.y += earthConstants.rotationSpeed;
       time.current += delta;
 
-      earthRef.current.position.x = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * earthConstants.majorAxis + earthConstants.offsetX;
-      earthRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * earthConstants.minorAxis + earthConstants.offsetZ;
-      earthRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(earthConstants.tilt) * earthConstants.majorAxis + earthConstants.offsetY;
+      const earthX = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * earthConstants.majorAxis + earthConstants.offsetX;
+      const earthZ = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * earthConstants.minorAxis + earthConstants.offsetZ;
+      const earthY = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(earthConstants.tilt) * earthConstants.majorAxis + earthConstants.offsetY;
+
+      earthRef.current.position.set(earthX, earthY, earthZ);
+
+      if (moonRef.current) {
+        moonRef.current.rotation.y += earthConstants.moon.rotationSpeed;
+        const moonX = earthX + earthConstants.moon.distance * Math.cos((2 * Math.PI * time.current) / earthConstants.moon.orbitalPeriod);
+        const moonZ = earthZ + earthConstants.moon.distance * Math.sin((2 * Math.PI * time.current) / earthConstants.moon.orbitalPeriod);
+        const moonY = earthY;
+
+        moonRef.current.position.set(moonX, moonY, moonZ);
+      }
 
       const axialTilt = earthConstants.axialTilt;
       earthRef.current.rotation.x = axialTilt;
 
       earthTextRef?.current?.lookAt(camera.position);
       const distance = earthRef.current.position.distanceTo(camera.position);
-      if (showOrbit) {
+      if (selectedPlanetState !== earthConstants.selectedPlanet) {
         if (distance > 35) {
           let textScale = distance / 20;
           earthTextRef.current.scale.set(textScale, textScale, textScale);
@@ -90,19 +100,15 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
   };
 
   const handleClick = (num) => {
-    setShowOrbit(!showOrbit);
     selectedPlanet.current = earthConstants.selectedPlanet;
     setSelectedPlanetState((prev) => {
       if (prev === num) {
         return 0;
       }
       return num;
-    }
-  );
-  // setSelectedPlanetState(showOrbit ? selectedPlanet.current : 0);
-  radiusRef.current = earthConstants.radius;
-  followPlanetRef.current =(selectedPlanetState===num)? (followPlanetRef.current + 1) % 3:1;
-    // followPlanetRef.current = (followPlanetRef.current + 1) % 3;
+    });
+    radiusRef.current = earthConstants.radius;
+    followPlanetRef.current = (selectedPlanetState === num) ? (followPlanetRef.current + 1) % 3 : 1;
   };
 
   return (
@@ -118,7 +124,7 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
           position={[0, 0, 0]}
           ref={earthRef}
         />
-        {selectedPlanetState!= earthConstants.selectedPlanet &&
+        {selectedPlanetState !== earthConstants.selectedPlanet &&
           <Text
             position={[0, 1, 0]}
             fontSize={0.5}
@@ -132,7 +138,13 @@ export default function Earth({ earthRef, followPlanetRef, radiusRef, selectedPl
           </Text>
         }
       </mesh>
-      {selectedPlanetState != earthConstants.selectedPlanet &&
+        <ModelProcessor 
+          url={require("../Models/EarthMoon.glb")}
+          scale={earthConstants.moon.modelScale}
+          position={[0.1, 0, 0]}
+          ref={moonRef}
+        />
+      {selectedPlanetState !== earthConstants.selectedPlanet &&
         <Orbit coordinates={EarthOrbit} color={color} hoverColor={"green"} thickness={10} />
       }
     </>

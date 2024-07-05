@@ -23,7 +23,7 @@ const slideOutLeft = keyframes`
 `;
 
 export default function InformationPlane({ selectedPlanetState = 0 }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(null);
   const [isVisible, setIsVisible] = useState(false); // State to manage visibility
 

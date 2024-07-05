@@ -39,7 +39,7 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
   const [hovered, setHovered] = useState(false);
   const [color, setColor] = useState(neptuneConstants.color);
   const { camera } = useThree();
-
+  const tritonRef = useRef(null);
   useEffect(() => {
     const initialPosition = calculateNeptunePosition();
     if (neptuneRef.current) {
@@ -58,19 +58,26 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
       neptuneRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * neptuneConstants.minorAxis + neptuneConstants.offsetZ;
       neptuneRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(neptuneConstants.tilt) * neptuneConstants.majorAxis + neptuneConstants.offsetY;
 
+      if (tritonRef.current) {
+        tritonRef.current.rotation.y += neptuneConstants.rotationSpeed;
+        tritonRef.current.position.x = neptuneRef.current.position.x + neptuneConstants.triton.majorAxis * Math.cos((2 * Math.PI * time.current) / neptuneConstants.triton.orbitalPeriod);
+        tritonRef.current.position.z = neptuneRef.current.position.z + neptuneConstants.triton.minorAxis * Math.sin((2 * Math.PI * time.current) / neptuneConstants.triton.orbitalPeriod);
+        tritonRef.current.position.y = neptuneRef.current.position.y + neptuneConstants.triton.distance * Math.cos((2 * Math.PI * time.current) / neptuneConstants.triton.orbitalPeriod);
+      }
+
       const axialTilt = neptuneConstants.axialTilt;
       neptuneRef.current.rotation.x = axialTilt;
 
       neptuneTextRef?.current?.lookAt(camera.position);
       const distance = neptuneRef.current.position.distanceTo(camera.position);
       if (showOrbit) {
-        if (distance > 35) {
+        if (distance > 55) {
           let textScale = distance / 20;
           neptuneTextRef.current.scale.set(textScale, textScale, textScale);
-          neptuneTextRef.current.position.y = 0.45 * textScale;
+          neptuneTextRef.current.position.y = 5.95
         } else {
           neptuneTextRef.current.position.y = 3.75;
-          neptuneTextRef.current.scale.set(0.95, 0.95, 0.95);
+          neptuneTextRef.current.scale.set(1.95, 1.95, 1.95);
         }
       }
     }
@@ -139,6 +146,12 @@ export default function Neptune({ neptuneRef, followPlanetRef, radiusRef, select
           </Text>
         }
       </mesh>
+      <ModelProcessor
+        url={require("../Models/Triton.glb")}
+        scale={neptuneConstants.triton.modelScale}
+        position={[0, 0, 0]}
+        ref={tritonRef}
+      />
       {selectedPlanetState !== neptuneConstants.selectedPlanet &&
         <Orbit coordinates={NeptuneOrbit} color={color} hoverColor={"blue"} thickness={10} />
       }

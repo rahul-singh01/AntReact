@@ -64,7 +64,7 @@ export default function Venus({ venusRef, followPlanetRef, radiusRef, selectedPl
             venusTextRef?.current?.lookAt(camera.position);
             const distance = venusRef.current.position.distanceTo(camera.position);
             if (showOrbit) {
-                if (distance > 35) {
+                if (distance > 15) {
                     let textScale = distance / 20;
                     venusTextRef.current.scale.set(textScale, textScale, textScale);
                     venusTextRef.current.position.y = 0.45 * textScale;

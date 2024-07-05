@@ -39,7 +39,9 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
     const [hovered, setHovered] = useState(false);
     const [color, setColor] = useState(saturnConstants.color);
     const { camera } = useThree();
-
+    const titanRef = useRef(null);
+    const rheaRef = useRef(null);
+    const iapetusRef = useRef(null);
     useEffect(() => {
         const initialPosition = calculateSaturnPosition();
         if (saturnRef.current) {
@@ -57,14 +59,38 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
             saturnRef.current.position.x = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * saturnConstants.majorAxis + saturnConstants.offsetX;
             saturnRef.current.position.z = Math.sin((2 * Math.PI * time.current) / orbitalPeriod) * saturnConstants.minorAxis + saturnConstants.offsetZ;
             saturnRef.current.position.y = Math.cos((2 * Math.PI * time.current) / orbitalPeriod) * Math.tan(saturnConstants.tilt) * saturnConstants.majorAxis + saturnConstants.offsetY;
+            
+            if (titanRef.current) {
+                const titanAngle = ( Math.PI * time.current) / (3*saturnConstants.titan.orbitalPeriod);
+                titanRef.current.position.x = saturnRef.current.position.x + saturnConstants.titan.majorAxis * Math.cos(titanAngle);
+                titanRef.current.position.z = saturnRef.current.position.z + saturnConstants.titan.minorAxis * Math.sin(titanAngle);
+                titanRef.current.position.y = saturnRef.current.position.y + saturnConstants.titan.majorAxis * Math.tan(saturnConstants.titan.tilt) * Math.cos(titanAngle);
+                titanRef.current.rotation.y += saturnConstants.titan.rotationSpeed;
+            }
+            
+            if (rheaRef.current) {
+                const rheaAngle = ( Math.PI * time.current) / (4*saturnConstants.rhea.orbitalPeriod);
+                rheaRef.current.position.x = saturnRef.current.position.x + saturnConstants.rhea.majorAxis * Math.cos(rheaAngle);
+                rheaRef.current.position.z = saturnRef.current.position.z + saturnConstants.rhea.minorAxis * Math.sin(rheaAngle);
+                rheaRef.current.position.y = saturnRef.current.position.y + saturnConstants.rhea.majorAxis * Math.tan(saturnConstants.rhea.tilt) * Math.cos(rheaAngle);
+                rheaRef.current.rotation.y += saturnConstants.rhea.rotationSpeed;
+            }
 
+            if (iapetusRef.current) {
+                const iapetusAngle = ( Math.PI * time.current) / (79*saturnConstants.iapetus.orbitalPeriod);
+                iapetusRef.current.position.x = saturnRef.current.position.x + saturnConstants.iapetus.majorAxis * Math.cos(iapetusAngle);
+                iapetusRef.current.position.z = saturnRef.current.position.z + saturnConstants.iapetus.minorAxis * Math.sin(iapetusAngle);
+                iapetusRef.current.position.y = saturnRef.current.position.y + saturnConstants.iapetus.majorAxis * Math.tan(saturnConstants.iapetus.tilt) * Math.cos(iapetusAngle);
+                iapetusRef.current.rotation.y += saturnConstants.iapetus.rotationSpeed;
+            }
+            
             const axialTilt = saturnConstants.axialTilt;
             saturnRef.current.rotation.x = axialTilt;
 
             saturnTextRef?.current?.lookAt(camera.position);
             const distance = saturnRef.current.position.distanceTo(camera.position);
             if (showOrbit) {
-                if (distance > 35) {
+                if (distance > 15) {
                     let textScale = distance / 20;
                     saturnTextRef.current.scale.set(textScale, textScale, textScale);
                     saturnTextRef.current.position.y = 0.45 * textScale;
@@ -140,6 +166,24 @@ export default function Saturn({ saturnRef, followPlanetRef, radiusRef, selected
                     </Text>
                 }
             </mesh>
+            <ModelProcessor 
+                url={require("../Models/Titan.glb")}
+                scale={saturnConstants.titan.modelScale}
+                position={[0, 0, 0]}
+                ref={titanRef}
+            />
+            <ModelProcessor
+                url={require("../Models/Rhea.glb")}
+                scale={saturnConstants.rhea.modelScale}
+                position={[0, 0, 0]}
+                ref={rheaRef}
+            />
+            <ModelProcessor
+                url={require("../Models/Lapetus.glb")}
+                scale={saturnConstants.iapetus.modelScale}
+                position={[0, 0, 0]}
+                ref={iapetusRef}
+            />
             {selectedPlanetState !== saturnConstants.selectedPlanet &&
                 <Orbit coordinates={SaturnOrbit} color={color} hoverColor={"blue"} thickness={10} />
             }

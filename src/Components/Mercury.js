@@ -63,13 +63,15 @@ export default function Mercury({ mercuryRef, followPlanetRef, radiusRef, select
 
             const distance = mercuryRef.current.position.distanceTo(camera.position);
             if (showOrbit) {
+                // let textScale = distance / 20;
+                // mercuryTextRef.current.scale.set(textScale, textScale, textScale);
                 if (distance > 25) {
                     let textScale = distance / 20;
                     mercuryTextRef.current.scale.set(textScale, textScale, textScale);
-                    mercuryTextRef.current.position.y = 0.45 * textScale;
+                    mercuryTextRef.current.position.y = 0.75
                 } else {
                     mercuryTextRef.current.position.y = 0.75;
-                    mercuryTextRef.current.scale.set(0.5, 0.5, 0.5);
+                    mercuryTextRef.current.scale.set(0.8, 0.8, 0.8);
                 }
             }
         }

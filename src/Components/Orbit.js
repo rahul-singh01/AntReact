@@ -28,7 +28,7 @@ const Orbit = ({ coordinates, color }) => {
     return (
         <line ref={lineRef} geometry={orbitGeometry}>
             <lineBasicMaterial attach="material" color={color} />
-            <primitive
+            <primitive 
                 object={orbitGeometry}
                 onPointerOver={handlePointerOver}
                 onPointerOut={handlePointerOut}
